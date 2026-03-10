@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        body { max-width: 900px; margin: auto; padding: 20px; }
+        .authors { font-style: italic; margin-bottom: 20px; }
+        .links { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+        .btn { background: #005fcc; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn:hover { background: #004ba0; color: white; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; color: #333; }
+        .figure-caption { font-size: 0.9em; color: #666; text-align: center; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Robotic Policy Adaptation via Weight-Space Meta-Learning</h1>
+    
+    <p class="authors">Anonymous Authors</p>
+
+    <div class="links">
+        <a href="ECCV_Robot_Policy_Generation.pdf" class="btn">📄 Download PDF</a>
+        <a href="https://github.com/Fascetta/WIZARD" class="btn">💻 Code on GitHub</a>
+    </div>
+
+    <hr>
+
+    <h3>Abstract</h3>
+    <p>Modern imitation-based robotic policies are predominantly expert systems: large pretrained Vision-Language-Action (VLA) models typically require test-time fine-tuning on task data to specialize their behavior. [cite: 42] We propose a new paradigm for robotic test-time adaptation: generating task-specific policy parameters directly in weight space to enable scalable zero-shot adaptation to unseen tasks. [cite: 43]</p>
+    
+    <p>We introduce WIZARD, a meta-network that generates low-rank adapters for a frozen VLA policy from task evidence composed of language instructions and short demonstration videos.  At inference time, given only a prompt and a single video from an unseen task, WIZARD generates the task-specific LoRA adapter in a single forward pass and applies it to the frozen VLA backbone. [cite: 47] Experiments on the LIBERO benchmark show that the generated adapters improve performance by up to ~ 2x on unseen datasets and up to ~ 15x on unseen tasks. [cite: 48]</p>
+
+    <h3>Method Overview</h3>
+    <img src="figure1.png" alt="WIZARD Method Architecture" style="width:100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <p class="figure-caption"><strong>Figure 1:</strong> WIZARD meta-training and zero-shot inference pipeline. The meta-network learns to map embeddings to LoRA parameters by reconstructing expert weights. [cite: 155]</p>
+
+    <h3>Citation</h3>
+    <p>If you find our work useful, please consider citing it:</p>
+    <pre>
+@misc{anonymous2026wizard,
+  title={Robotic Policy Adaptation via Weight-Space Meta-Learning},
+  author={Anonymous},
+  year={2026}
+}</pre>
+
+</body>
+</html>
