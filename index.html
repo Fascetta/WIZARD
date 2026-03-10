@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning</title>
-  <meta name="description" content="WIZARD generates task-specific LoRA parameters directly in weight space to enable scalable zero-shot adaptation of VLA models.">
+  <meta name="description" content="WIZARD generates a task-specific policy from a prompt and a single video demonstration via weight-space meta-learning.">
   <meta name="keywords" content="WIZARD, Robotics, VLA, Meta-Learning, Zero-Shot Adaptation, ItalAI">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -104,7 +104,7 @@
             
             <h1 class="title is-1 publication-title">
               WIZARD<span class="red-dot">.</span><br>
-              <span style="font-size:2.0rem; color: var(--graphite-alloy);">Robotic Policy Adaptation via Weight-Space Meta-Learning</span>
+              <span style="font-size:2.0rem; color: var(--graphite-alloy);">Robotic Policy Adaptation<br>via Weight-Space Meta-Learning</span>
             </h1>
             
             <div class="is-size-5 publication-authors" style="margin-top: 20px;">
@@ -149,10 +149,11 @@
     <div class="container is-max-desktop">
       <div class="hero-body has-text-centered">
         <img style="width:1000px; border-radius: 4px; border: 1px solid var(--warm-sand);" src="./static/images/inference_animation.gif" alt="WIZARD Inference Animation">
-        <div class="subtitle content has-text-justified" style="margin-top: 20px;">
-          <p>&nbsp;</p>
-          We introduce a novel paradigm for robotic test-time adaptation. <strong>WIZARD</strong> generates task-specific LoRA parameters directly in weight space to enable scalable zero-shot adaptation of VLA models. By passing a prompt and a single demonstration video through a meta-network, it outputs tailored policy weights in a single forward pass—bypassing the need for gradient-based test-time fine-tuning<span class="red-dot">.</span>
+        
+        <div class="subtitle content has-text-centered" style="margin-top: 25px; max-width: 800px; margin-left: auto; margin-right: auto;">
+          <strong>WIZARD</strong> generates a task-specific policy from a prompt and a single video demonstration. It improves over standard baselines by up to ~15x by learning generation in the weight-space via meta-learning<span class="red-dot">.</span>
         </div>
+
       </div>
     </div>
   </section>
