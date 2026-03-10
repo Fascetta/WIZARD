@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning</title>
-  <meta name="description" content="WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning">
+  <meta name="description" content="WIZARD generates task-specific LoRA parameters directly in weight space to enable scalable zero-shot adaptation of VLA models.">
   <meta name="keywords" content="WIZARD, Robotics, VLA, Meta-Learning, Zero-Shot Adaptation, ItalAI">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -19,11 +19,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
 
+  <link rel="icon" href="./static/images/favicon.png">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
     :root {
@@ -90,24 +95,31 @@
 </head>
 
 <body>
+
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">WIZARD<span class="red-dot">.</span><br><span style="font-size:2.0rem; color: var(--graphite-alloy);">Robotic Policy Adaptation via Weight-Space Meta-Learning</span></h1>
+            
+            <h1 class="title is-1 publication-title">
+              WIZARD<span class="red-dot">.</span><br>
+              <span style="font-size:2.0rem; color: var(--graphite-alloy);">Robotic Policy Adaptation via Weight-Space Meta-Learning</span>
+            </h1>
             
             <div class="is-size-5 publication-authors" style="margin-top: 20px;">
-              <span class="author-block">Christian Bianchi<sup>1</sup>,</span>
-              <span class="author-block">Siamak Yousefi<sup>1</sup>,</span>
-              <span class="author-block">Alessio Sampieri<sup>1</sup>,</span>
-              <span class="author-block">Luca Rigazio<sup>1</sup>,</span>
-              <span class="author-block">Fabio Galasso<sup>1</sup>,</span>
-              <span class="author-block">Luca Franco<sup>1</sup></span>
+              <span class="author-block"><a href="#">Christian Bianchi</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="#">Siamak Yousefi</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="#">Alessio Sampieri</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="#">Luca Rigazio</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="#">Fabio Galasso</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="#">Luca Franco</a><sup>1</sup></span>
             </div>
 
             <div class="is-size-5 publication-authors" style="margin-top: 10px; margin-bottom: 20px;">
-              <span class="author-block" style="font-family: 'JetBrains Mono', monospace; font-weight: bold; color: var(--quantum-blue);"><sup>1</sup>ItalAI Labs</span>
+              <span class="author-block" style="font-family: 'JetBrains Mono', monospace; font-weight: bold; color: var(--quantum-blue);">
+                <sup>1</sup>ItalAI Labs
+              </span>
             </div>
 
             <div class="column has-text-centered">
@@ -126,6 +138,7 @@
                 </span>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -135,38 +148,50 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body has-text-centered">
-        <img src="static/images/inference_animation.gif" alt="WIZARD Inference Animation" style="width: 100%; max-width: 800px; border-radius: 4px; border: 1px solid var(--warm-sand);"/>
-        <h2 class="subtitle has-text-centered" style="margin-top: 20px;">
-          <strong>WIZARD</strong> generates task-specific LoRA parameters directly in weight space to enable scalable zero-shot adaptation of VLA models. By passing a prompt and a single demonstration video through a meta-network, it outputs tailored policy weights in a single forward pass—bypassing the need for gradient-based test-time fine-tuning<span class="red-dot">.</span>
-        </h2>
+        <img style="width:1000px; border-radius: 4px; border: 1px solid var(--warm-sand);" src="./static/images/inference_animation.gif" alt="WIZARD Inference Animation">
+        <div class="subtitle content has-text-justified" style="margin-top: 20px;">
+          <p>&nbsp;</p>
+          We introduce a novel paradigm for robotic test-time adaptation. <strong>WIZARD</strong> generates task-specific LoRA parameters directly in weight space to enable scalable zero-shot adaptation of VLA models. By passing a prompt and a single demonstration video through a meta-network, it outputs tailored policy weights in a single forward pass—bypassing the need for gradient-based test-time fine-tuning<span class="red-dot">.</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="hero is-light is-small">
+  <section class="section" style="margin-top: -50px; padding-top: 0;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Zero-Shot Rollout Demonstrations</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-light is-small" style="margin-top: -20px; padding-top: 0;">
     <div class="hero-body">
       <div class="container">
-        <h2 class="title is-3 has-text-centered" style="margin-bottom: 30px;">Zero-Shot Rollouts<span class="red-dot">.</span></h2>
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item has-text-centered">
             <video poster="" autoplay controls muted loop playsinline height="100%">
-              <source src="static/videos/libero_spatial.mp4" type="video/mp4">
+              <source src="./static/videos/libero_spatial.mp4" type="video/mp4">
             </video>
             <p id="overlay" style="font-family: 'JetBrains Mono', monospace; margin-top: 10px;">LIBERO-Spatial: Pick up the black bowl on the stove...</p>
           </div>
           <div class="item has-text-centered">
             <video poster="" autoplay controls muted loop playsinline height="100%">
-              <source src="static/videos/libero_object.mp4" type="video/mp4">
+              <source src="./static/videos/libero_object.mp4" type="video/mp4">
             </video>
             <p id="overlay" style="font-family: 'JetBrains Mono', monospace; margin-top: 10px;">LIBERO-Object: Pick up the orange juice...</p>
           </div>
           <div class="item has-text-centered">
             <video poster="" autoplay controls muted loop playsinline height="100%">
-              <source src="static/videos/libero_goal.mp4" type="video/mp4">
+              <source src="./static/videos/libero_goal.mp4" type="video/mp4">
             </video>
             <p id="overlay" style="font-family: 'JetBrains Mono', monospace; margin-top: 10px;">LIBERO-Goal: Put the wine bottle on the rack...</p>
           </div>
         </div>
+        <br>
+        <p class="has-text-centered">Rollouts demonstrating WIZARD's generated adapters successfully completing strict held-out tasks zero-shot.</p>
       </div>
     </div>
   </section>
@@ -186,76 +211,82 @@
           </div>
         </div>
       </div>
+      <hr>
     </div>
   </section>
 
   <section class="section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered">
+      <div class="columns is-centered has-text-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3">Methodology<span class="red-dot">.</span></h2>
-          <div class="content has-text-justified">
-            <p>
-              <strong>The Weight-Space Formulation:</strong> We frame robotic adaptation as parameter inference. WIZARD directly maps visual and linguistic inputs to low-rank policy updates, using scale-aware generation and weight-space supervision to ensure stable control.
-            </p>
-            <img src="static/images/figure1.png" alt="WIZARD Architecture Diagram" style="width: 100%; border-radius: 4px; border: 1px solid var(--warm-sand); margin-top: 15px; margin-bottom: 15px;"/>
+          <h2 class="title is-3">The WIZARD Architecture</h2>
+          <img style="width:1000px" src="./static/images/figure1.png" alt="WIZARD Architecture Diagram">
+
+          <div class="subtitle content has-text-justified">
+            <p>&nbsp;</p>
+            <p><strong>The Weight-Space Formulation:</strong> We frame robotic adaptation as parameter inference. WIZARD directly maps visual and linguistic inputs to low-rank policy updates, using scale-aware generation and weight-space supervision to ensure stable control.</p>
           </div>
         </div>
       </div>
+      <hr>
     </div>
   </section>
 
   <section class="section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered">
+      <div class="columns is-centered has-text-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3">Zero-Shot Generalization<span class="red-dot">.</span></h2>
-          <div class="content has-text-justified">
+          <h2 class="title is-3">Zero-Shot Generalization: LIBERO-Spatial</h2>
+
+          <div class="subtitle content has-text-justified">
+            <p>&nbsp;</p>
             <p>We evaluate weight-space inference against standard fine-tuning under strict held-out distribution shifts. In the <strong>LIBERO-Spatial</strong> evaluation suite, the baseline MT-VLA struggles to adapt without gradient updates. Conversely, WIZARD's generated adapters correctly interpret relational spatial instructions and adapt kinematics, achieving a ~2x performance increase over the multi-task baseline entirely zero-shot.</p>
           </div>
-          
-          <div class="table-container">
-            <table class="table is-fullwidth is-hoverable">
+
+          <div class="table-container" style="margin-top: 30px;">
+            <table class="table is-fullwidth is-hoverable has-text-centered" style="margin: 0 auto;">
               <thead>
                 <tr>
-                  <th>Method</th>
+                  <th class="has-text-left">Method</th>
                   <th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>T8</th><th>T9</th><th>T10</th>
                   <th style="color: var(--digital-vermilion);">Avg.</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>MT-VLA</strong> (Baseline)</td>
+                  <td class="has-text-left"><strong>MT-VLA</strong> (Baseline)</td>
                   <td>0.22</td><td>0.00</td><td>0.56</td><td>0.86</td><td>0.00</td><td>0.02</td><td>0.00</td><td>0.18</td><td>0.02</td><td>0.00</td>
                   <td><strong>0.19</strong></td>
                 </tr>
                 <tr style="background-color: rgba(50, 182, 146, 0.1);">
-                  <td><strong>WIZARD</strong> (Matched Task)</td>
+                  <td class="has-text-left"><strong>WIZARD</strong> (Matched Task)</td>
                   <td>0.90</td><td>0.12</td><td>0.82</td><td>0.84</td><td>0.08</td><td>0.28</td><td>0.10</td><td>0.76</td><td>0.08</td><td>0.00</td>
                   <td style="color: var(--verde-nova); font-weight: bold;">0.40</td>
                 </tr>
                 <tr style="color: #888;">
-                  <td>π₀.₅ Experts (Upper Bound)</td>
+                  <td class="has-text-left">π₀.₅ Experts (Upper Bound)</td>
                   <td>1.00</td><td>0.98</td><td>1.00</td><td>0.94</td><td>0.92</td><td>0.98</td><td>0.96</td><td>0.98</td><td>0.96</td><td>0.96</td>
                   <td>0.97</td>
                 </tr>
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
+      <hr>
     </div>
   </section>
 
   <section class="section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered">
+      <div class="columns is-centered has-text-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3">Ablations<span class="red-dot">.</span></h2>
-          <div class="content has-text-justified">
-            <p>
-              Our analysis reveals that <strong>task-level embeddings</strong> preserve discriminative semantics necessary for effective parameter generation, outperforming broader dataset-level conditioning. Furthermore, a <strong>single demonstration episode</strong> is sufficient to construct an informative task embedding; expanding the support size yields diminishing returns. Finally, ablating the input modalities confirms that both <strong>text</strong> (providing high-level intent) and <strong>visual demonstrations</strong> (providing geometric and kinematic priors) are critical to prevent performance collapse.
-            </p>
+          <h2 class="title is-3">Ablations</h2>
+
+          <div class="subtitle content has-text-justified">
+            <p>&nbsp;</p>
+            <p>Our analysis reveals that <strong>task-level embeddings</strong> preserve discriminative semantics necessary for effective parameter generation, outperforming broader dataset-level conditioning. Furthermore, a <strong>single demonstration episode</strong> is sufficient to construct an informative task embedding; expanding the support size yields diminishing returns. Finally, ablating the input modalities confirms that both <strong>text</strong> (providing high-level intent) and <strong>visual demonstrations</strong> (providing geometric and kinematic priors) are critical to prevent performance collapse.</p>
           </div>
         </div>
       </div>
@@ -264,9 +295,9 @@
 
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX<span class="red-dot">.</span></h2>
-      <pre><code>@misc{anonymous2026wizard,
-    title={Robotic Policy Adaptation via Weight-Space Meta-Learning},
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{bianchi2026wizard,
+    title={Robotic Policy Adaptation via Weight-Space Meta-Learning}, 
     author={Christian Bianchi and Siamak Yousefi and Alessio Sampieri and Luca Rigazio and Fabio Galasso and Luca Franco},
     year={2026}
 }</code></pre>
@@ -275,11 +306,19 @@
 
   <footer class="footer">
     <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="#" style="pointer-events: none; opacity: 0.6;">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/Fascetta/WIZARD">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
       <div class="columns is-centered">
         <div class="column is-8">
           <div class="content has-text-centered">
-            <p style="font-size: 0.9em;">
-              Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io" style="color: var(--quantum-blue);">NeRFies</a>.
+            <p>
+              Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io" style="color: var(--quantum-blue);">NeRFies</a> under a Creative Commons Attribution-ShareAlike 4.0 International license.
             </p>
           </div>
         </div>
