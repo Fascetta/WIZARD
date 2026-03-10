@@ -135,72 +135,10 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body has-text-centered">
-        <img src="static/images/figure1.png" alt="WIZARD Architecture Diagram" style="width: 100%; max-width: 800px; border-radius: 4px; border: 1px solid var(--warm-sand);"/>
+        <img src="static/images/inference_animation.gif" alt="WIZARD Inference Animation" style="width: 100%; max-width: 800px; border-radius: 4px; border: 1px solid var(--warm-sand);"/>
         <h2 class="subtitle has-text-centered" style="margin-top: 20px;">
-          <strong>WIZARD</strong> generates task-specific LoRA parameters directly in weight space to enable scalable zero-shot adaptation of VLA models. By passing a prompt and a single demonstration video through a meta-network, it outputs tailored policy weights in a single forward pass—bypassing the need for gradient-based test-time fine-tuning <span class="red-dot">.</span>
+          <strong>WIZARD</strong> generates task-specific LoRA parameters directly in weight space to enable scalable zero-shot adaptation of VLA models. By passing a prompt and a single demonstration video through a meta-network, it outputs tailored policy weights in a single forward pass—bypassing the need for gradient-based test-time fine-tuning<span class="red-dot">.</span>
         </h2>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-          <h2 class="title is-3">Methodology & Analysis<span class="red-dot">.</span></h2>
-          <div class="content has-text-justified">
-            <p>
-              <strong>The Weight-Space Formulation:</strong> We frame robotic adaptation as parameter inference. WIZARD directly maps visual and linguistic inputs to low-rank policy updates, using scale-aware generation and weight-space supervision to ensure stable control.
-            </p>
-            <p>
-              <strong>Key Ablations:</strong> 
-              Our analysis reveals that task-level embeddings preserve discriminative semantics necessary for effective parameter generation, outperforming dataset-level conditioning. Furthermore, a single episode is sufficient to construct an informative task embedding; expanding the support size yields diminishing returns. Finally, ablating the input modalities confirms that both text (providing the high-level intent) and visual demonstrations (providing geometric and kinematic priors) are critical to prevent performance collapse.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-          <h2 class="title is-3">Zero-Shot Generalization: LIBERO-Spatial<span class="red-dot">.</span></h2>
-          <div class="content has-text-justified">
-            <p>We evaluate weight-space inference against standard fine-tuning under strict held-out distribution shifts. In LIBERO-Spatial, WIZARD achieves a ~2x performance increase over the multi-task baseline entirely zero-shot.</p>
-          </div>
-          
-          <div class="table-container">
-            <table class="table is-fullwidth is-hoverable">
-              <thead>
-                <tr>
-                  <th>Method</th>
-                  <th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>T8</th><th>T9</th><th>T10</th>
-                  <th style="color: var(--digital-vermilion);">Avg.</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>MT-VLA</strong> (Baseline)</td>
-                  <td>0.22</td><td>0.00</td><td>0.56</td><td>0.86</td><td>0.00</td><td>0.02</td><td>0.00</td><td>0.18</td><td>0.02</td><td>0.00</td>
-                  <td><strong>0.19</strong> </td>
-                </tr>
-                <tr style="background-color: rgba(50, 182, 146, 0.1);">
-                  <td><strong>WIZARD</strong> (Matched Task)</td>
-                  <td>0.90</td><td>0.12</td><td>0.82</td><td>0.84</td><td>0.08</td><td>0.28</td><td>0.10</td><td>0.76</td><td>0.08</td><td>0.00</td>
-                  <td style="color: var(--verde-nova); font-weight: bold;">0.40 </td>
-                </tr>
-                <tr style="color: #888;">
-                  <td>π₀.₅ Experts (Upper Bound)</td>
-                  <td>1.00</td><td>0.98</td><td>1.00</td><td>0.94</td><td>0.92</td><td>0.98</td><td>0.96</td><td>0.98</td><td>0.96</td><td>0.96</td>
-                  <td>0.97 </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
       </div>
     </div>
   </section>
@@ -230,6 +168,108 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract<span class="red-dot">.</span></h2>
+          <div class="content has-text-justified">
+            <p>
+              Modern imitation-based robotic policies are predominantly expert systems: large pretrained Vision-Language-Action (VLA) models typically require test-time fine-tuning on task data to specialize their behavior. We propose a new paradigm for robotic test-time adaptation: generating task-specific policy parameters directly in weight space to enable scalable zero-shot adaptation to unseen tasks.
+            </p>
+            <p>
+              We introduce WIZARD, a meta-network that generates low-rank adapters for a frozen VLA policy from task evidence composed of language instructions and short demonstration videos. During meta-training, we construct a dataset pairing task descriptions (prompt and video) with task-specific LoRA updates. At inference time, given only a prompt and a single video from an unseen task, WIZARD generates the task-specific LoRA adapter in a single forward pass and applies it to the frozen VLA backbone. Experiments on the LIBERO benchmark show that the generated adapters improve performance by up to ~ 2x on unseen datasets and up to ~ 15x on unseen tasks.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Methodology<span class="red-dot">.</span></h2>
+          <div class="content has-text-justified">
+            <p>
+              <strong>The Weight-Space Formulation:</strong> We frame robotic adaptation as parameter inference. WIZARD directly maps visual and linguistic inputs to low-rank policy updates, using scale-aware generation and weight-space supervision to ensure stable control.
+            </p>
+            <img src="static/images/figure1.png" alt="WIZARD Architecture Diagram" style="width: 100%; border-radius: 4px; border: 1px solid var(--warm-sand); margin-top: 15px; margin-bottom: 15px;"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Zero-Shot Generalization<span class="red-dot">.</span></h2>
+          <div class="content has-text-justified">
+            <p>We evaluate weight-space inference against standard fine-tuning under strict held-out distribution shifts. In the <strong>LIBERO-Spatial</strong> evaluation suite, the baseline MT-VLA struggles to adapt without gradient updates. Conversely, WIZARD's generated adapters correctly interpret relational spatial instructions and adapt kinematics, achieving a ~2x performance increase over the multi-task baseline entirely zero-shot.</p>
+          </div>
+          
+          <div class="table-container">
+            <table class="table is-fullwidth is-hoverable">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>T8</th><th>T9</th><th>T10</th>
+                  <th style="color: var(--digital-vermilion);">Avg.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>MT-VLA</strong> (Baseline)</td>
+                  <td>0.22</td><td>0.00</td><td>0.56</td><td>0.86</td><td>0.00</td><td>0.02</td><td>0.00</td><td>0.18</td><td>0.02</td><td>0.00</td>
+                  <td><strong>0.19</strong></td>
+                </tr>
+                <tr style="background-color: rgba(50, 182, 146, 0.1);">
+                  <td><strong>WIZARD</strong> (Matched Task)</td>
+                  <td>0.90</td><td>0.12</td><td>0.82</td><td>0.84</td><td>0.08</td><td>0.28</td><td>0.10</td><td>0.76</td><td>0.08</td><td>0.00</td>
+                  <td style="color: var(--verde-nova); font-weight: bold;">0.40</td>
+                </tr>
+                <tr style="color: #888;">
+                  <td>π₀.₅ Experts (Upper Bound)</td>
+                  <td>1.00</td><td>0.98</td><td>1.00</td><td>0.94</td><td>0.92</td><td>0.98</td><td>0.96</td><td>0.98</td><td>0.96</td><td>0.96</td>
+                  <td>0.97</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Ablations<span class="red-dot">.</span></h2>
+          <div class="content has-text-justified">
+            <p>
+              Our analysis reveals that <strong>task-level embeddings</strong> preserve discriminative semantics necessary for effective parameter generation, outperforming broader dataset-level conditioning. Furthermore, a <strong>single demonstration episode</strong> is sufficient to construct an informative task embedding; expanding the support size yields diminishing returns. Finally, ablating the input modalities confirms that both <strong>text</strong> (providing high-level intent) and <strong>visual demonstrations</strong> (providing geometric and kinematic priors) are critical to prevent performance collapse.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX<span class="red-dot">.</span></h2>
+      <pre><code>@misc{anonymous2026wizard,
+    title={Robotic Policy Adaptation via Weight-Space Meta-Learning},
+    author={Christian Bianchi and Siamak Yousefi and Alessio Sampieri and Luca Rigazio and Fabio Galasso and Luca Franco},
+    year={2026}
+}</code></pre>
     </div>
   </section>
 
