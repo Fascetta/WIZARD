@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <title>WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning</title>
   <meta name="description" content="WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning">
-  <meta name="keywords" content="WIZARD, Robotics, VLA, Meta-Learning, Zero-Shot Adaptation">
+  <meta name="keywords" content="WIZARD, Robotics, VLA, Meta-Learning, Zero-Shot Adaptation, ItalAI">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
@@ -26,7 +26,6 @@
   <script src="./static/js/index.js"></script>
 
   <style>
-    /* Color Variables */
     :root {
       --verde-nova: #32B692;
       --digital-vermilion: #E4453A;
@@ -38,25 +37,19 @@
       --warm-sand: #D9CBB5;
     }
 
-    /* Base Typography & Background */
     body {
       font-family: 'DM Sans', sans-serif;
       background-color: var(--ivory-code);
       color: var(--deep-syntax);
     }
 
-    /* Headings */
     h1, h2, h3, h4, h5, h6, .title, .subtitle {
       font-family: 'JetBrains Mono', monospace !important;
       color: var(--deep-syntax) !important;
     }
 
-    /* The Red Dot Affirmation */
-    .red-dot {
-      color: var(--digital-vermilion);
-    }
+    .red-dot { color: var(--digital-vermilion); }
 
-    /* Buttons */
     .button.is-dark {
       background-color: var(--quantum-blue) !important;
       color: #ffffff !important;
@@ -64,33 +57,35 @@
       border: none;
       transition: background-color 0.3s ease;
     }
+    .button.is-dark:hover { background-color: var(--verde-nova) !important; }
 
-    .button.is-dark:hover {
-      background-color: var(--verde-nova) !important;
-    }
+    .hero, .section, .footer { background-color: transparent; }
+    .hero.is-light { background-color: var(--warm-sand) !important; }
 
-    /* Sections */
-    .hero, .section, .footer {
-      background-color: transparent;
-    }
-
-    .hero.is-light {
-      background-color: var(--warm-sand) !important;
-    }
-
-    /* Content styling */
     .content p {
       color: var(--graphite-alloy);
       line-height: 1.6;
     }
 
-    /* Code & Preformatted */
     pre {
       background-color: var(--deep-syntax) !important;
       color: var(--luminous-mint) !important;
       font-family: 'JetBrains Mono', monospace;
       border-radius: 8px;
     }
+
+    /* ItalAI Table Styling */
+    .table {
+      background-color: transparent;
+      color: var(--deep-syntax);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+    }
+    .table thead th {
+      color: var(--deep-syntax);
+      border-bottom: 2px solid var(--digital-vermilion);
+    }
+    .table tbody tr:hover { background-color: rgba(106, 124, 255, 0.1); }
   </style>
 </head>
 
@@ -100,31 +95,32 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">WIZARD<span class="red-dot">.</span><br><span style="font-size:2.4rem; color: var(--graphite-alloy);">Robotic Policy Adaptation via Weight-Space Meta-Learning</span></h1>
+            <h1 class="title is-1 publication-title">WIZARD<span class="red-dot">.</span><br><span style="font-size:2.0rem; color: var(--graphite-alloy);">Robotic Policy Adaptation via Weight-Space Meta-Learning</span></h1>
             
-            <div class="is-size-5 publication-authors" style="margin-top: 20px; margin-bottom: 20px;">
-              <span class="author-block">Anonymous Authors</span>
+            <div class="is-size-5 publication-authors" style="margin-top: 20px;">
+              <span class="author-block">Christian Bianchi<sup>1</sup>,</span>
+              <span class="author-block">Siamak Yousefi<sup>1</sup>,</span>
+              <span class="author-block">Alessio Sampieri<sup>1</sup>,</span>
+              <span class="author-block">Luca Rigazio<sup>1</sup>,</span>
+              <span class="author-block">Fabio Galasso<sup>1</sup>,</span>
+              <span class="author-block">Luca Franco<sup>1</sup></span>
+            </div>
+
+            <div class="is-size-5 publication-authors" style="margin-top: 10px; margin-bottom: 20px;">
+              <span class="author-block" style="font-family: 'JetBrains Mono', monospace; font-weight: bold; color: var(--quantum-blue);"><sup>1</sup>ItalAI Labs</span>
             </div>
 
             <div class="column has-text-centered">
               <div class="publication-links">
                 <span class="link-block">
-                  <a href="#"
-                    class="button is-normal is-rounded is-dark" 
-                    style="pointer-events: none; opacity: 0.6;" 
-                    title="Paper will be released upon acceptance">
-                    <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                    </span>
+                  <a href="#" class="button is-normal is-rounded is-dark" style="pointer-events: none; opacity: 0.6;" title="Paper will be released soon">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
                     <span>Paper (Coming Soon)</span>
                   </a>
                 </span>
                 <span class="link-block">
-                  <a href="https://github.com/Fascetta/WIZARD"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
+                  <a href="https://github.com/Fascetta/WIZARD" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
                     <span>Code</span>
                   </a>
                 </span>
@@ -141,7 +137,7 @@
       <div class="hero-body has-text-centered">
         <img src="static/images/figure1.png" alt="WIZARD Architecture Diagram" style="width: 100%; max-width: 800px; border-radius: 4px; border: 1px solid var(--warm-sand);"/>
         <h2 class="subtitle has-text-centered" style="margin-top: 20px;">
-          <strong>WIZARD</strong> enables zero-shot policy adaptation without gradient-based fine-tuning. By modeling relationships in weight space, the meta-network generates task-specific LoRA parameters directly from a language instruction and visual demonstration<span class="red-dot">.</span>
+          <strong>WIZARD</strong> generates task-specific LoRA parameters directly in weight space to enable scalable zero-shot adaptation of VLA models. By passing a prompt and a single demonstration video through a meta-network, it outputs tailored policy weights in a single forward pass—bypassing the need for gradient-based test-time fine-tuning <span class="red-dot">.</span>
         </h2>
       </div>
     </div>
@@ -149,17 +145,61 @@
 
   <section class="section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract<span class="red-dot">.</span></h2>
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Methodology & Analysis<span class="red-dot">.</span></h2>
           <div class="content has-text-justified">
             <p>
-              Modern imitation-based robotic policies are predominantly expert systems: large pretrained Vision-Language-Action (VLA) models typically require test-time fine-tuning on task data to specialize their behavior. We propose a new paradigm for robotic test-time adaptation: generating task-specific policy parameters directly in weight space to enable scalable zero-shot adaptation to unseen tasks.
+              <strong>The Weight-Space Formulation:</strong> We frame robotic test-time adaptation as a parameter inference problem rather than an action-space optimization problem. Our meta-network, <strong>HyperConvVLA</strong>, receives sequence-aligned visual and linguistic task evidence and outputs structured, low-rank parameter updates. To ensure stability in continuous robotic control, the framework relies on scale-aware parameter generation  and enforces alignment-oriented supervision in weight space to maintain directional consistency with expert policies.
             </p>
             <p>
-              We introduce WIZARD, a meta-network that generates low-rank adapters for a frozen VLA policy from task evidence composed of language instructions and short demonstration videos. During meta-training, we construct a dataset pairing task descriptions (prompt and video) with task-specific LoRA updates. At inference time, given only a prompt and a single video from an unseen task, WIZARD generates the task-specific LoRA adapter in a single forward pass and applies it to the frozen VLA backbone. Experiments on the LIBERO benchmark show that the generated adapters improve performance by up to ~ 2x on unseen datasets and up to ~ 15x on unseen tasks.
+              <strong>Key Ablations:</strong> 
+              Our analysis reveals that task-level embeddings preserve discriminative semantics necessary for effective parameter generation, outperforming dataset-level conditioning. Furthermore, a single episode is sufficient to construct an informative task embedding; expanding the support size yields diminishing returns. Finally, ablating the input modalities confirms that both text (providing the high-level intent) and visual demonstrations (providing geometric and kinematic priors) are critical to prevent performance collapse.
             </p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Zero-Shot Generalization: LIBERO-Spatial<span class="red-dot">.</span></h2>
+          <div class="content has-text-justified">
+            <p>We evaluate weight-space inference against standard fine-tuning under strict held-out distribution shifts. In LIBERO-Spatial, WIZARD achieves a ~2x performance increase over the multi-task baseline entirely zero-shot.</p>
+          </div>
+          
+          <div class="table-container">
+            <table class="table is-fullwidth is-hoverable">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>T8</th><th>T9</th><th>T10</th>
+                  <th style="color: var(--digital-vermilion);">Avg.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>MT-VLA</strong> (Baseline)</td>
+                  <td>0.22</td><td>0.00</td><td>0.56</td><td>0.86</td><td>0.00</td><td>0.02</td><td>0.00</td><td>0.18</td><td>0.02</td><td>0.00</td>
+                  <td><strong>0.19</strong> </td>
+                </tr>
+                <tr style="background-color: rgba(50, 182, 146, 0.1);">
+                  <td><strong>WIZARD</strong> (Matched Task)</td>
+                  <td>0.90</td><td>0.12</td><td>0.82</td><td>0.84</td><td>0.08</td><td>0.28</td><td>0.10</td><td>0.76</td><td>0.08</td><td>0.00</td>
+                  <td style="color: var(--verde-nova); font-weight: bold;">0.40 </td>
+                </tr>
+                <tr style="color: #888;">
+                  <td>π₀.₅ Experts (Upper Bound)</td>
+                  <td>1.00</td><td>0.98</td><td>1.00</td><td>0.94</td><td>0.92</td><td>0.98</td><td>0.96</td><td>0.98</td><td>0.96</td><td>0.96</td>
+                  <td>0.97 </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
     </div>
@@ -170,41 +210,26 @@
       <div class="container">
         <h2 class="title is-3 has-text-centered" style="margin-bottom: 30px;">Zero-Shot Rollouts<span class="red-dot">.</span></h2>
         <div id="results-carousel" class="carousel results-carousel">
-          
           <div class="item has-text-centered">
             <video poster="" autoplay controls muted loop playsinline height="100%">
               <source src="static/videos/libero_spatial.mp4" type="video/mp4">
             </video>
             <p id="overlay" style="font-family: 'JetBrains Mono', monospace; margin-top: 10px;">LIBERO-Spatial: Pick up the black bowl on the stove...</p>
           </div>
-          
           <div class="item has-text-centered">
             <video poster="" autoplay controls muted loop playsinline height="100%">
               <source src="static/videos/libero_object.mp4" type="video/mp4">
             </video>
             <p id="overlay" style="font-family: 'JetBrains Mono', monospace; margin-top: 10px;">LIBERO-Object: Pick up the orange juice...</p>
           </div>
-
           <div class="item has-text-centered">
             <video poster="" autoplay controls muted loop playsinline height="100%">
               <source src="static/videos/libero_goal.mp4" type="video/mp4">
             </video>
             <p id="overlay" style="font-family: 'JetBrains Mono', monospace; margin-top: 10px;">LIBERO-Goal: Put the wine bottle on the rack...</p>
           </div>
-          
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX<span class="red-dot">.</span></h2>
-      <pre><code>@misc{anonymous2026wizard,
-    title={Robotic Policy Adaptation via Weight-Space Meta-Learning},
-    author={Anonymous},
-    year={2026}
-}</code></pre>
     </div>
   </section>
 
@@ -214,7 +239,7 @@
         <div class="column is-8">
           <div class="content has-text-centered">
             <p style="font-size: 0.9em;">
-              Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io" style="color: var(--quantum-blue);">NeRFies</a> under a Creative Commons Attribution-ShareAlike 4.0 International license.
+              Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io" style="color: var(--quantum-blue);">NeRFies</a>.
             </p>
           </div>
         </div>
