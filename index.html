@@ -150,7 +150,7 @@
           <h2 class="title is-3">Methodology & Analysis<span class="red-dot">.</span></h2>
           <div class="content has-text-justified">
             <p>
-              <strong>The Weight-Space Formulation:</strong> We frame robotic test-time adaptation as a parameter inference problem rather than an action-space optimization problem. Our meta-network, <strong>HyperConvVLA</strong>, receives sequence-aligned visual and linguistic task evidence and outputs structured, low-rank parameter updates. To ensure stability in continuous robotic control, the framework relies on scale-aware parameter generation  and enforces alignment-oriented supervision in weight space to maintain directional consistency with expert policies.
+              <strong>The Weight-Space Formulation:</strong> We frame robotic adaptation as parameter inference. WIZARD directly maps visual and linguistic inputs to low-rank policy updates, using scale-aware generation and weight-space supervision to ensure stable control.
             </p>
             <p>
               <strong>Key Ablations:</strong> 
