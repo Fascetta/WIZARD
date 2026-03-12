@@ -1,170 +1,266 @@
+/* ItalAI Brand Guidelines Integration for WIZARD Project Page */
+
+/* 1. Color System & Root Variables
+/* ========================================================================== */
+:root {
+  /* Primary Palette */
+  --verde-nova: #32B692;
+  --digital-vermilion: #E4453A;
+  --ivory-code: #F6F4EC;
+  --quantum-blue: #6A7CFF;
+  --graphite-alloy: #2C2C2C;
+  --deep-syntax: #0D0221;
+  /* Secondary Palette */
+  --luminous-mint: #C6FFE0;
+  --warm-sand: #D9CBB5;
+  /* Utility */
+  --text-light: #F6F4EC;
+  --text-dark: #0D0221;
+  --text-body: #2C2C2C;
+}
+
+/* 2. Global Styles & Typography
+/* ========================================================================== */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 52px; /* Offset for sticky nav */
+}
+
 body {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--ivory-code);
+  color: var(--text-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .title, .subtitle, .button, .navbar-item {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+h1, h2, h3, h4, .title {
+  color: var(--text-dark) !important;
+}
+.dark-section h1, .dark-section h2, .dark-section h3, .dark-section .title {
+  color: var(--text-light) !important;
+}
+/* CHANGED: Ensure strong text in dark sections is visible */
+.dark-section strong {
+  color: var(--text-light) !important;
 }
 
 
-.footer .icon-link {
-    font-size: 25px;
-    color: #000;
+.subtitle {
+  color: var(--graphite-alloy) !important;
+  line-height: 1.6;
 }
 
-.link-block a {
-    margin-top: 5px;
-    margin-bottom: 5px;
+p, li, .content {
+  line-height: 1.7;
+  font-size: 1.1rem;
 }
 
-.dnerf {
-  font-variant: small-caps;
+/* Red Dot - Brand Signature */
+.red-dot {
+  color: var(--digital-vermilion) !important;
 }
 
-
-.teaser .hero-body {
-  padding-top: 0;
-  padding-bottom: 3rem;
+/* Text Highlighting */
+.highlight-green {
+  color: var(--verde-nova);
+  font-weight: 700;
+}
+.highlight-blue {
+  color: var(--quantum-blue);
+  font-weight: 700;
 }
 
-.teaser {
-  font-family: 'Google Sans', sans-serif;
-  padding: 40px 0 0 0;
+/* 3. Reusable Components & Layout
+/* ========================================================================== */
+.section {
+  padding: 6rem 1.5rem;
 }
 
+.light-section {
+  background-color: #fdfcf7; /* A slightly lighter, less yellow Ivory */
+  border-top: 1px solid var(--warm-sand);
+  border-bottom: 1px solid var(--warm-sand);
+}
+
+.dark-section {
+  background-color: var(--deep-syntax);
+  color: var(--text-light); /* This sets the base text color for the section */
+}
+.dark-section p, .dark-section li {
+  color: #c9c7d4; /* This sets the color for paragraphs and list items, slightly desaturated for contrast */
+}
+
+/* Limit text width for readability */
+.content-narrow {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.button.is-dark {
+  background-color: var(--quantum-blue) !important;
+  color: #ffffff !important;
+  border: none;
+  font-weight: 700;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.button.is-dark:hover {
+  background-color: var(--verde-nova) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 4. Page Sections
+/* ========================================================================== */
+
+/* -- Navbar -- */
+.navbar {
+  background-color: rgba(246, 244, 236, 0.85); /* Translucent Ivory Code */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--warm-sand);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.navbar-item {
+  font-weight: 700;
+  color: var(--graphite-alloy);
+  transition: color 0.3s ease;
+}
+.navbar-item:hover {
+  background-color: transparent !important;
+  color: var(--quantum-blue) !important;
+}
+.navbar-burger {
+  color: var(--graphite-alloy);
+}
+
+/* -- Hero -- */
+.hero {
+  padding-top: 80px; /* Added more space above the hero to clear the sticky navbar */
+}
+.publication-title {
+  font-size: 4.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.publication-subtitle { margin-top: 0; margin-bottom: 2rem; }
+.publication-authors { margin: 2rem 0; }
+.publication-affiliation { font-family: 'JetBrains Mono', monospace; font-weight: bold; color: var(--quantum-blue); margin-bottom: 2.5rem; }
+
+/* -- Teaser -- */
+.teaser { padding: 0; }
 .teaser-video {
-  background: #f5f5f5;
-  padding: 40px 0 0 0;
-}
-
-.publication-title {
-}
-
-.publication-banner {
-  max-height: parent;
-
-}
-
-.publication-banner video {
-  position: relative;
-  left: auto;
-  top: auto;
-  transform: none;
-  object-fit: fit;
-}
-
-.publication-header .hero-body {
-}
-
-.publication-title {
-    font-family: 'Google Sans', sans-serif;
-}
-
-.publication-authors {
-    font-family: 'Google Sans', sans-serif;
-}
-
-.publication-venue {
-    color: #555;
-    width: fit-content;
-    font-weight: bold;
-}
-
-.publication-awards {
-    color: #ff3860;
-    width: fit-content;
-    font-weight: bolder;
-}
-
-.publication-authors {
-}
-
-.publication-authors a {
-   color: hsl(204, 86%, 53%) !important;
-}
-
-.publication-authors a:hover {
-    text-decoration: underline;
-}
-
-.author-block {
-  display: inline-block;
-}
-
-.publication-banner img {
-}
-
-.publication-authors {
-  /*color: #4286f4;*/
-}
-
-.publication-video {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%;
-
-    overflow: hidden;
-    border-radius: 10px !important;
-}
-
-.publication-video iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.publication-body img {
-}
-
-.results-carousel {
-  overflow: hidden;
-}
-
-.results-carousel .item {
-  margin: 5px;
-  overflow: hidden;
-  border: 1px solid #bbb;
-  border-radius: 10px;
-  padding: 0;
-  font-size: 0;
-}
-
-.results-carousel video {
-  margin: 0;
-  z-index:0;
-}
-
-.results-carousel overlay {
-    position:absolute;
-    top:0;
-    left:0;
-    z-index:1;
-}
-
-.interpolation-panel {
-  background: #f5f5f5;
-  border-radius: 10px;
-}
-
-.interpolation-panel .interpolation-image {
   width: 100%;
-  border-radius: 5px;
+  border-radius: 8px;
+  border: 1px solid var(--warm-sand);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  background-color: var(--deep-syntax); /* Poster background */
 }
 
-.interpolation-video-column {
+/* -- Qualitative Results -- */
+.video-container {
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--deep-syntax);
+}
+.video-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+.video-container video { width: 100%; display: block; }
+.video-caption { font-family: 'JetBrains Mono', monospace; padding: 0.75rem; background-color: #fff; border-top: 1px solid #eee; font-size: 0.9em; text-align: center; color: var(--deep-syntax); }
+
+/* -- Key Contributions -- */
+.contributions-list {
+  list-style: none;
+  margin: 2rem 0 0 0;
+}
+.contributions-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  font-size: 1.1rem;
+}
+.contributions-list li:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.contributions-list .icon {
+  color: var(--verde-nova);
+  font-size: 1.5rem;
+  margin-top: 0.2rem;
 }
 
-.interpolation-panel .slider {
-  margin: 0 !important;
+/* -- Method -- */
+.method-diagram { display: block; margin: 2rem auto; border-radius: 8px; max-width: 1000px; width: 100%; }
+
+/* -- Quantitative Table -- */
+.table-container { margin-top: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 6px; overflow: hidden; }
+.table { background-color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.95em; }
+.table thead th { color: var(--text-dark); border-bottom: 2px solid var(--digital-vermilion); background-color: #fafafa; }
+.table tbody tr:hover { background-color: rgba(106, 124, 255, 0.05); }
+.summary-col { font-weight: bold; }
+
+/* Enhanced highlighting for WIZARD row */
+.wizard-row {
+  background-color: rgba(50, 182, 146, 0.18); /* Slightly more prominent light green background */
+  border-left: 5px solid var(--verde-nova); /* Stronger left border to emphasize the row */
+  transition: background-color 0.3s ease, border-left-color 0.3s ease;
 }
 
-.interpolation-panel .slider {
-  margin: 0 !important;
+/* Target the first cell (Method name) in WIZARD row for specific styling */
+.wizard-row td.has-text-left {
+    color: var(--verde-nova) !important; /* Make the text itself green */
+    font-weight: 700 !important; /* Make it bolder */
 }
 
-#interpolation-image-wrapper {
-  width: 100%;
-}
-#interpolation-image-wrapper img {
-  border-radius: 5px;
+.wizard-avg {
+  color: var(--verde-nova) !important;
+  font-weight: 900 !important; /* Even bolder for the average */
+  font-size: 1.1em !important; /* Slightly larger text for emphasis */
 }
 
+/* Ensure the hover effect still works well for the wizard row */
+.table tbody tr.wizard-row:hover {
+  background-color: rgba(50, 182, 146, 0.25); /* Slightly darker on hover */
+}
+
+.upper-bound-row { color: #888; font-style: italic; }
+
+/* -- BibTeX / Citation -- */
+pre {
+  background-color: var(--ivory-code) !important;
+  color: var(--deep-syntax) !important;
+  border: 1px solid var(--warm-sand);
+  font-family: 'JetBrains Mono', monospace;
+  border-radius: 8px;
+  padding: 1.5rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.dark-section pre {
+  background-color: #1a1033 !important; /* Slightly lighter than deep-syntax */
+  color: var(--luminous-mint) !important;
+  border: 1px solid var(--graphite-alloy);
+}
+
+/* -- Footer -- */
+.footer {
+  background-color: var(--deep-syntax);
+  color: var(--warm-sand);
+  padding: 4rem 1.5rem;
+}
+.footer p {
+  color: var(--warm-sand);
+}
+.footer a {
+  color: var(--quantum-blue);
+  font-weight: 700;
+}
+.footer a:hover {
+  color: var(--verde-nova);
+}
