@@ -59,5 +59,5 @@ If you find WIZARD useful in your research, please consider citing our work:
     title={WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning},
     author={Christian Bianchi and Siamak Yousefi and Alessio Sampieri and Luca Rigazio and Fabio Galasso and Luca Franco},
     year={2026},
-    publisher={ItalAI Labs}
+    publisher={ItalAI}
 }
