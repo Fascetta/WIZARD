@@ -44,11 +44,9 @@ h1, h2, h3, h4, .title {
 .dark-section h1, .dark-section h2, .dark-section h3, .dark-section .title {
   color: var(--text-light) !important;
 }
-/* CHANGED: Ensure strong text in dark sections is visible */
 .dark-section strong {
   color: var(--text-light) !important;
 }
-
 
 .subtitle {
   color: var(--graphite-alloy) !important;
@@ -60,12 +58,16 @@ p, li, .content {
   font-size: 1.1rem;
 }
 
-/* Red Dot - Brand Signature */
+/* Brand Signatures */
 .red-dot {
   color: var(--digital-vermilion) !important;
 }
-
-/* Text Highlighting */
+.gradient-text {
+  background: linear-gradient(90deg, var(--quantum-blue), var(--verde-nova));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
 .highlight-green {
   color: var(--verde-nova);
   font-weight: 700;
@@ -82,20 +84,19 @@ p, li, .content {
 }
 
 .light-section {
-  background-color: #fdfcf7; /* A slightly lighter, less yellow Ivory */
+  background-color: #fdfcf7; 
   border-top: 1px solid var(--warm-sand);
   border-bottom: 1px solid var(--warm-sand);
 }
 
 .dark-section {
   background-color: var(--deep-syntax);
-  color: var(--text-light); /* This sets the base text color for the section */
+  color: var(--text-light); 
 }
 .dark-section p, .dark-section li {
-  color: #c9c7d4; /* This sets the color for paragraphs and list items, slightly desaturated for contrast */
+  color: #c9c7d4; 
 }
 
-/* Limit text width for readability */
 .content-narrow {
   max-width: 850px;
   margin: 0 auto;
@@ -119,10 +120,12 @@ p, li, .content {
 
 /* -- Navbar -- */
 .navbar {
-  background-color: rgba(246, 244, 236, 0.85); /* Translucent Ivory Code */
-  backdrop-filter: blur(10px);
+  background-color: rgba(246, 244, 236, 0.85) !important; 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--warm-sand);
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: background 0.3s ease;
 }
 .navbar-item {
   font-weight: 700;
@@ -139,7 +142,7 @@ p, li, .content {
 
 /* -- Hero -- */
 .hero {
-  padding-top: 80px; /* Added more space above the hero to clear the sticky navbar */
+  padding-top: 80px; 
 }
 .publication-title {
   font-size: 4.5rem;
@@ -157,23 +160,32 @@ p, li, .content {
   border-radius: 8px;
   border: 1px solid var(--warm-sand);
   box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-  background-color: var(--deep-syntax); /* Poster background */
+  background-color: var(--deep-syntax); 
 }
 
-/* -- Qualitative Results -- */
+/* -- Video Grid (Sim & Real Results) -- */
 .video-container {
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: var(--deep-syntax);
+  background-color: #f5f5f5; /* Placeholder before load */
 }
 .video-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  transform: scale(1.03);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  z-index: 2;
 }
-.video-container video { width: 100%; display: block; }
-.video-caption { font-family: 'JetBrains Mono', monospace; padding: 0.75rem; background-color: #fff; border-top: 1px solid #eee; font-size: 0.9em; text-align: center; color: var(--deep-syntax); }
+.video-container video { width: 100%; display: block; border-radius: 8px 8px 0 0; }
+.video-caption { 
+  font-family: 'JetBrains Mono', monospace; 
+  padding: 0.75rem; 
+  background-color: #fff; 
+  border-top: 1px solid #eee; 
+  font-size: 0.9em; 
+  text-align: center; 
+  color: var(--deep-syntax); 
+}
 
 /* -- Key Contributions -- */
 .contributions-list {
@@ -186,14 +198,8 @@ p, li, .content {
   gap: 1.5rem;
   font-size: 1.1rem;
 }
-.contributions-list li:not(:last-child) {
-  margin-bottom: 2rem;
-}
-.contributions-list .icon {
-  color: var(--verde-nova);
-  font-size: 1.5rem;
-  margin-top: 0.2rem;
-}
+.contributions-list li:not(:last-child) { margin-bottom: 2rem; }
+.contributions-list .icon { color: var(--verde-nova); font-size: 1.5rem; margin-top: 0.2rem; }
 
 /* -- Method -- */
 .method-diagram { display: block; margin: 2rem auto; border-radius: 8px; max-width: 1000px; width: 100%; }
@@ -205,33 +211,27 @@ p, li, .content {
 .table tbody tr:hover { background-color: rgba(106, 124, 255, 0.05); }
 .summary-col { font-weight: bold; }
 
-/* Enhanced highlighting for WIZARD row */
 .wizard-row {
-  background-color: rgba(50, 182, 146, 0.18); /* Slightly more prominent light green background */
-  border-left: 5px solid var(--verde-nova); /* Stronger left border to emphasize the row */
+  background-color: rgba(50, 182, 146, 0.18); 
+  border-left: 5px solid var(--verde-nova); 
   transition: background-color 0.3s ease, border-left-color 0.3s ease;
 }
-
-/* Target the first cell (Method name) in WIZARD row for specific styling */
 .wizard-row td.has-text-left {
-    color: var(--verde-nova) !important; /* Make the text itself green */
-    font-weight: 700 !important; /* Make it bolder */
+    color: var(--verde-nova) !important; 
+    font-weight: 700 !important; 
 }
-
 .wizard-avg {
   color: var(--verde-nova) !important;
-  font-weight: 900 !important; /* Even bolder for the average */
-  font-size: 1.1em !important; /* Slightly larger text for emphasis */
+  font-weight: 900 !important; 
+  font-size: 1.1em !important; 
 }
-
-/* Ensure the hover effect still works well for the wizard row */
-.table tbody tr.wizard-row:hover {
-  background-color: rgba(50, 182, 146, 0.25); /* Slightly darker on hover */
-}
-
+.table tbody tr.wizard-row:hover { background-color: rgba(50, 182, 146, 0.25); }
 .upper-bound-row { color: #888; font-style: italic; }
 
 /* -- BibTeX / Citation -- */
+.citation-container {
+  position: relative;
+}
 pre {
   background-color: var(--ivory-code) !important;
   color: var(--deep-syntax) !important;
@@ -243,9 +243,31 @@ pre {
   word-wrap: break-word;
 }
 .dark-section pre {
-  background-color: #1a1033 !important; /* Slightly lighter than deep-syntax */
+  background-color: #1a1033 !important; 
   color: var(--luminous-mint) !important;
   border: 1px solid var(--graphite-alloy);
+}
+
+.copy-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.copy-button:hover { background: rgba(255, 255, 255, 0.2); }
+.copy-button.copied {
+  background: var(--verde-nova); 
+  border-color: var(--verde-nova);
 }
 
 /* -- Footer -- */
@@ -254,13 +276,6 @@ pre {
   color: var(--warm-sand);
   padding: 4rem 1.5rem;
 }
-.footer p {
-  color: var(--warm-sand);
-}
-.footer a {
-  color: var(--quantum-blue);
-  font-weight: 700;
-}
-.footer a:hover {
-  color: var(--verde-nova);
-}
+.footer p { color: var(--warm-sand); }
+.footer a { color: var(--quantum-blue); font-weight: 700; }
+.footer a:hover { color: var(--verde-nova); }
