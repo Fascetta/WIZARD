@@ -1,78 +1,66 @@
-window.HELP_IMPROVE_VIDEOJS = false;
+document.addEventListener('DOMContentLoaded', () => {
 
-var INTERP_BASE = "https://homes.cs.washington.edu/~kpar/nerfies/interpolation/stacked";
-var NUM_INTERP_FRAMES = 240;
-
-var interp_images = [];
-function preloadInterpolationImages() {
-  for (var i = 0; i < NUM_INTERP_FRAMES; i++) {
-    var path = INTERP_BASE + '/' + String(i).padStart(6, '0') + '.jpg';
-    interp_images[i] = new Image();
-    interp_images[i].src = path;
-  }
-}
-
-function setInterpolationImage(i) {
-  var image = interp_images[i];
-  image.ondragstart = function() { return false; };
-  image.oncontextmenu = function() { return false; };
-  $('#interpolation-image-wrapper').empty().append(image);
-}
-
-
-$(document).ready(function() {
-    // Check for click events on the navbar burger icon
-    $(".navbar-burger").click(function() {
-      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-      $(".navbar-burger").toggleClass("is-active");
-      $(".navbar-menu").toggleClass("is-active");
-
+  // 1. Mobile Navbar Toggle
+  const burger = document.querySelector('.navbar-burger');
+  const menu = document.querySelector('.navbar-menu');
+  
+  if (burger && menu) {
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('is-active');
+      menu.classList.toggle('is-active');
     });
+  }
 
-    var options = {
-			slidesToScroll: 1,
-			slidesToShow: 3,
-			loop: true,
-			infinite: true,
-			autoplay: true,
-			autoplaySpeed: 3000,
-    }
+  // 2. Lazy Load & Auto-Pause Videos (Intersection Observer)
+  // Ensures videos only play when visible on screen, saving CPU and battery.
+  let lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
 
-		// Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', options);
+  if ("IntersectionObserver" in window) {
+    let lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(videoEntry) {
+        let video = videoEntry.target;
+        if (videoEntry.isIntersecting) {
+          video.play().catch(error => console.log("Autoplay prevented:", error));
+        } else {
+          video.pause();
+        }
+      });
+    }, { rootMargin: "0px 0px -10% 0px" });
 
-    // Loop on each carousel initialized
-    for(var i = 0; i < carousels.length; i++) {
-    	// Add listener to  event
-    	carousels[i].on('before:show', state => {
-    		console.log(state);
-    	});
-    }
+    lazyVideos.forEach(function(lazyVideo) {
+      lazyVideoObserver.observe(lazyVideo);
+    });
+  }
 
-    // Access to bulmaCarousel instance of an element
-    var element = document.querySelector('#my-element');
-    if (element && element.bulmaCarousel) {
-    	// bulmaCarousel instance is available as element.bulmaCarousel
-    	element.bulmaCarousel.on('before-show', function(state) {
-    		console.log(state);
-    	});
-    }
+  // 3. Copy BibTeX to Clipboard
+  const copyBtn = document.getElementById('copy-bibtex');
+  const bibtexCode = document.getElementById('bibtex-code');
 
-    /*var player = document.getElementById('interpolation-video');
-    player.addEventListener('loadedmetadata', function() {
-      $('#interpolation-slider').on('input', function(event) {
-        console.log(this.value, player.duration);
-        player.currentTime = player.duration / 100 * this.value;
-      })
-    }, false);*/
-    // preloadInterpolationImages();
+  if (copyBtn && bibtexCode) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(bibtexCode.innerText);
+        
+        // Visual feedback
+        const copyText = copyBtn.querySelector('.copy-text');
+        const icon = copyBtn.querySelector('.icon i');
+        
+        copyBtn.classList.add('copied');
+        copyText.innerText = 'Copied!';
+        icon.classList.remove('far', 'fa-copy');
+        icon.classList.add('fas', 'fa-check');
 
-    // $('#interpolation-slider').on('input', function(event) {
-    //   setInterpolationImage(this.value);
-    // });
-    // setInterpolationImage(0);
-    // $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
+        // Reset button state after 2 seconds
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          copyText.innerText = 'Copy';
+          icon.classList.remove('fas', 'fa-check');
+          icon.classList.add('far', 'fa-copy');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+      }
+    });
+  }
 
-    bulmaSlider.attach();
-
-})
+});
