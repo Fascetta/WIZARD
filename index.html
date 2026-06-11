@@ -34,7 +34,8 @@
       <div id="navbar-menu" class="navbar-menu">
         <div class="navbar-end">
           <a class="navbar-item" href="#tldr">TL;DR</a>
-          <a class="navbar-item" href="#results">Results</a>
+          <a class="navbar-item" href="#results">Simulation</a>
+          <a class="navbar-item" href="#real-results">Real Experiments</a>
           <a class="navbar-item" href="#contributions">Contributions</a>
           <a class="navbar-item" href="#method">Method</a>
           <a class="navbar-item" href="#citation">Citation</a>
@@ -86,7 +87,6 @@
   <!-- Teaser Video -->
   <section class="hero teaser">
     <div class="container is-max-widescreen">
-        <!-- CHANGED: Added aria-label for accessibility -->
         <video class="teaser-video" autoplay muted loop playsinline poster="./static/images/figure1.png" aria-label="Animation demonstrating the WIZARD process: A language prompt and a single demonstration video are used to generate a task-specific adapter, which is then applied to a robotic policy to execute a task.">
           <source src="./static/images/inference_animation.mp4" type="video/mp4">
         </video>
@@ -105,10 +105,26 @@
       </div>
   </section>
 
-  <!-- Qualitative Results -->
-  <section class="section light-section" id="results">
+  <!-- Real-World Qualitative Results -->
+  <section class="section light-section" id="real-results">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Zero-Shot Rollout Demonstrations<span class="red-dot">.</span></h2>
+      <h2 class="title is-3 has-text-centered">Real-World Zero-Shot Adaptation<span class="red-dot">.</span></h2>
+      <div class="content has-text-centered">
+        <p>WIZARD smoothly transfers to physical robots, effectively parsing real-world visual demonstrations to generate successful zero-shot policy adaptations.</p>
+      </div>
+      <div class="columns is-multiline is-centered">
+        <!-- Update the source paths and captions based on the actual static assets -->
+        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="real-caption-1"><source src="./static/videos/Real_World/task1_pick_and_place_apple.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-1"><b>Real-World:</b> Pick up the apple and place it in the bowl</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="real-caption-2"><source src="./static/videos/Real_World/task2_fold_the_cloth.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-2"><b>Real-World:</b> Fold the cloth on the table</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="real-caption-3"><source src="./static/videos/Real_World/task3_put_block_in_drawer.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-3"><b>Real-World:</b> Open the drawer and place the block inside</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simulation Qualitative Results -->
+  <section class="section" id="results">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Simulation Rollout Demonstrations<span class="red-dot">.</span></h2>
       <div class="columns is-multiline is-centered">
         <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="caption-1"><source src="./static/videos/LIBERO_Spatial/task8_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-1"><b>LIBERO-Spatial:</b> Pick up the black bowl on the stove and place it on the plate</p></div></div>
         <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="caption-2"><source src="./static/videos/LIBERO_Object/task5_pick_up_the_orange_juice_and_place_it_in_the_basket.mp4" type="video/mp4"></video><p class="video-caption" id="caption-2"><b>LIBERO-Object:</b> Pick up the orange juice and place it in the basket</p></div></div>
@@ -121,7 +137,7 @@
   </section>
 
   <!-- Abstract -->
-  <section class="section">
+  <section class="section light-section">
     <div class="container content-narrow">
       <h2 class="title is-3 has-text-centered">Abstract<span class="red-dot">.</span></h2>
       <div class="content has-text-justified">
@@ -199,11 +215,14 @@
   <section class="section dark-section" id="citation">
     <div class="container content-narrow">
       <h2 class="title">Citation<span class="red-dot">.</span></h2>
-      <pre><code>@misc{bianchi2026wizard,
-    title={WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning}, 
-    author={Christian Bianchi and Siamak Yousefi and Alessio Sampieri and Luca Rigazio and Fabio Galasso and Luca Franco},
-    year={2026},
-    publisher={ItalAI}
+      <pre><code>@misc{bianchi2026roboticpolicyadaptationweightspace,
+      title={Robotic Policy Adaptation via Weight-Space Meta-Learning}, 
+      author={Christian Bianchi and Siamak Yousefi and Alessio Sampieri and Andrea Roberti and Luca Rigazio and Fabio Galasso and Luca Franco},
+      year={2026},
+      eprint={2606.07217},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2606.07217}, 
 }</code></pre>
     </div>
   </section>
