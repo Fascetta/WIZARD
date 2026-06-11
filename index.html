@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +21,7 @@
 
 <body>
 
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
@@ -48,7 +47,7 @@
     </div>
   </nav>
 
-    <section class="hero">
+  <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
         <h1 class="title is-1 publication-title">WIZARD<span class="red-dot">.</span></h1>
@@ -83,7 +82,7 @@
     </div>
   </section>
 
-    <section class="hero teaser">
+  <section class="hero teaser">
     <div class="container is-max-widescreen">
         <video class="teaser-video" autoplay muted loop playsinline poster="./static/images/figure1.png" aria-label="Animation demonstrating the WIZARD process: A language prompt and a single demonstration video are used to generate a task-specific adapter, which is then applied to a robotic policy to execute a task.">
           <source src="./static/images/inference_animation.mp4" type="video/mp4">
@@ -91,7 +90,7 @@
     </div>
   </section>
 
-    <section class="section" id="tldr">
+  <section class="section" id="tldr">
       <div class="container content-narrow">
           <h2 class="title is-3 has-text-centered">TL;DR<span class="red-dot">.</span></h2>
           <div class="content is-size-5 has-text-centered">
@@ -113,10 +112,41 @@
         <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="real-caption-2"><source src="./static/videos/Real_World/Banana.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-2"><b>Real-World:</b> Pick up the banana</p></div></div>
         <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="real-caption-3"><source src="./static/videos/Real_World/Cup.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-3"><b>Real-World:</b> Pick up the cup</p></div></div>
       </div>
+
+      <div class="content content-narrow mt-6">
+        <h3 class="title is-4 has-text-centered">Quantitative Results</h3>
+        <p>Success rates for zero-shot real-world execution. WIZARD effectively generalizes to unseen physical tasks directly from a single visual demonstration.</p>
+      </div>
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable has-text-centered">
+          <thead>
+            <tr>
+              <th class="has-text-left">Method</th>
+              <th>Pick up the apple</th>
+              <th>Pick up the banana</th>
+              <th>Pick up the cup</th>
+              <th class="summary-col">Avg.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="has-text-left"><strong>MT-VLA</strong> (Baseline)</td>
+              <td>0.00</td>
+              <td>0.00</td>
+              <td>0.00</td>
+              <td class="summary-col"><strong>0.00</strong></td>
+            </tr>
+            <tr class="wizard-row">
+              <td class="has-text-left"><strong>WIZARD</strong> (Ours)</td>
+              <td>0.80</td> <td>0.80</td> <td>0.80</td> <td class="summary-col wizard-avg">0.80</td> </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </section>
 
-    <section class="section" id="results">
+  <section class="section" id="results">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Simulation Rollout Demonstrations<span class="red-dot">.</span></h2>
       <div class="columns is-multiline is-centered">
@@ -130,7 +160,7 @@
     </div>
   </section>
 
-    <section class="section light-section">
+  <section class="section light-section">
     <div class="container content-narrow">
       <h2 class="title is-3 has-text-centered">Abstract<span class="red-dot">.</span></h2>
       <div class="content has-text-justified">
@@ -144,7 +174,7 @@
     </div>
   </section>
 
-    <section class="section dark-section" id="contributions">
+  <section class="section dark-section" id="contributions">
     <div class="container content-narrow">
       <h2 class="title is-3 has-text-centered">Key Contributions<span class="red-dot">.</span></h2>
       <ul class="contributions-list">
@@ -155,7 +185,7 @@
     </div>
   </section>
 
-    <section class="section" id="method">
+  <section class="section" id="method">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">The WIZARD Architecture<span class="red-dot">.</span></h2>
       <img class="method-diagram" src="./static/images/figure1.png" alt="WIZARD Architecture Diagram">
@@ -172,7 +202,7 @@
     </div>
   </section>
 
-    <section class="section light-section" id="quantitative">
+  <section class="section light-section" id="quantitative">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Zero-Shot Generalization: LIBERO-Spatial<span class="red-dot">.</span></h2>
       <div class="content content-narrow">
@@ -191,7 +221,7 @@
     </div>
   </section>
 
-    <section class="section">
+  <section class="section">
       <div class="container content-narrow">
           <h2 class="title is-3 has-text-centered">Ablations<span class="red-dot">.</span></h2>
           <div class="content has-text-justified">
@@ -200,7 +230,7 @@
       </div>
   </section>
   
-    <section class="section dark-section" id="citation">
+  <section class="section dark-section" id="citation">
     <div class="container content-narrow">
       <h2 class="title">Citation<span class="red-dot">.</span></h2>
       <pre><code>@misc{bianchi2026roboticpolicyadaptationweightspace,
@@ -215,7 +245,7 @@
     </div>
   </section>
 
-    <footer class="footer">
+  <footer class="footer">
     <div class="container">
       <div class="content has-text-centered">
         <p>Website template based on <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>. Branding by ItalAI Labs.</p>
@@ -236,5 +266,3 @@
   </script>
 </body>
 </html>
-
-```
