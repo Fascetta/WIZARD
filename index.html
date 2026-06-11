@@ -2,342 +2,392 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning</title>
-  <meta name="description" content="WIZARD generates a task-specific policy from a prompt and a single video demonstration via weight-space meta-learning.">
-  <meta name="keywords" content="WIZARD, Robotics, VLA, Meta-Learning, Zero-Shot Adaptation, ItalAI">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!-- Open Graph / Social Media Meta Tags -->
+  <title>WIZARD | Robotic Policy Adaptation via Weight-Space Meta-Learning</title>
+  <meta name="description" content="WIZARD generates task-specific LoRA adapters for frozen VLA policies from one prompt and one short demonstration, enabling zero-shot adaptation without test-time optimization.">
+  <meta name="keywords" content="WIZARD, VLA, robotics, LoRA, meta-learning, LIBERO, zero-shot adaptation">
+
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://your-domain.github.io/WIZARD/">
   <meta property="og:title" content="WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning">
-  <meta property="og:description" content="WIZARD generates a task-specific policy from a prompt and a single video demonstration via weight-space meta-learning.">
-  <meta property="og:image" content="https://your-domain.github.io/WIZARD/static/images/social_preview.png">
-  
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://your-domain.github.io/WIZARD/">
-  <meta property="twitter:title" content="WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning">
-  <meta property="twitter:description" content="WIZARD generates a task-specific policy from a prompt and a single video demonstration via weight-space meta-learning.">
-  <meta property="twitter:image" content="https://your-domain.github.io/WIZARD/static/images/social_preview.png">
+  <meta property="og:description" content="Weight-space meta-learning for VLA adaptation from language and video evidence.">
+  <meta property="og:image" content="./static/images/figure1.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.png">
-
-  <!-- Modern UI Polish CSS -->
-  <style>
-    /* Glassmorphism Navbar */
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.8) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      transition: background 0.3s ease;
-    }
-    
-    /* Gradient Typography for WIZARD */
-    .gradient-text {
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
-
-    /* Video Hover States & Polish */
-    .video-container {
-      overflow: hidden;
-      border-radius: 12px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      background: #f5f5f5; /* Placeholder color before load */
-    }
-    .video-container:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-      z-index: 2;
-    }
-    .video-container video {
-      border-radius: 12px;
-      display: block;
-      width: 100%;
-    }
-  </style>
 </head>
 
 <body>
-  <nav class="navbar is-fixed-top glass-nav" role="navigation" aria-label="main navigation">
-    <div class="container">
-      <div class="navbar-brand">
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-      <div id="navbar-menu" class="navbar-menu">
-        <div class="navbar-end">
-          <a class="navbar-item" href="#tldr">TL;DR</a>
-          <a class="navbar-item" href="#results">Simulation</a>
-          <a class="navbar-item" href="#real-results">Real Experiments</a>
-          <a class="navbar-item" href="#contributions">Contributions</a>
-          <a class="navbar-item" href="#method">Method</a>
-          <a class="navbar-item" href="#citation">Citation</a>
-          <a class="navbar-item" href="https://github.com/Fascetta/WIZARD">
-            <span class="icon"><i class="fab fa-github"></i></span>
-            <span>Code</span>
-          </a>
-        </div>
-      </div>
+  <header class="topbar" id="top">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top">WIZARD<span class="period">.</span></a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#real">Real Robot</a>
+        <a href="#analysis">Analysis</a>
+        <a href="#citation">Citation</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" id="menu-toggle">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </nav>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="#overview">Overview</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#real">Real Robot</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#citation">Citation</a>
+    </nav>
+  </header>
 
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop has-text-centered">
-        <h1 class="title is-1 publication-title"><span class="gradient-text">WIZARD</span><span class="red-dot">.</span></h1>
-        <h2 class="subtitle is-3 publication-subtitle">Robotic Policy Adaptation<br>via Weight-Space Meta-Learning</h2>
-        
-        <div class="is-size-5 publication-authors">
-          <span class="author-block"><a href="https://github.com/Fascetta" target="_blank">Christian Bianchi</a><sup>1</sup>,</span>
-          <span class="author-block"><a href="https://scholar.google.com/citations?user=DtSI4y8AAAAJ&hl=en" target="_blank">Siamak Yousefi</a><sup>1</sup>,</span>
-          <span class="author-block"><a href="https://www.linkedin.com/in/alessio-sampieri/" target="_blank">Alessio Sampieri</a><sup>1</sup>,</span>
-          <span class="author-block"><a href="https://www.linkedin.com/in/lucarigazio/" target="_blank">Luca Rigazio</a><sup>1</sup>,</span>
-          <span class="author-block"><a href="https://fgalasso.bitbucket.io/" target="_blank">Fabio Galasso</a><sup>1</sup>,</span>
-          <span class="author-block"><a href="https://fraluca.github.io/" target="_blank">Luca Franco</a><sup>1</sup></span>
-        </div>
+  <main>
+    <section class="hero-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="section-label">WIZARD</p>
+          <h1>Robotic Policy Adaptation<br>via <span class="highlight-blue">Weight-Space Meta-Learning</span><span class="period">.</span></h1>
+          <p class="hero-subtitle">
+            WIZARD reframes test-time adaptation as parameter inference: from one instruction and one short video,
+            it generates a task-specific LoRA adapter in a single forward pass.
+          </p>
 
-        <div class="is-size-5 publication-affiliation"><sup>1</sup><a href="https://italailabs.com/" target="_blank">ItalAI</a></div>
+          <div class="hero-authors">
+            Christian Bianchi, Siamak Yousefi, Alessio Sampieri, Andrea Roberti, Luca Rigazio, Fabio Galasso, Luca Franco
+          </div>
+          <div class="hero-affiliation">ItalAI Labs</div>
 
-        <div class="publication-links">
-          <span class="link-block">
-            <a href="https://arxiv.org/abs/2606.07217" class="button is-dark is-rounded" target="_blank">
-              <span class="icon"><i class="ai ai-archive"></i></span>
-              <span>Paper</span>
+          <div class="hero-actions">
+            <a class="cta cta-primary" href="https://arxiv.org/abs/2606.07217" target="_blank" rel="noopener">
+              <i class="ai ai-archive"></i> Paper
             </a>
-          </span>
-          <span class="link-block">
-            <a href="https://github.com/Fascetta/WIZARD" class="button is-dark is-rounded" target="_blank">
-              <span class="icon"><i class="fab fa-github"></i></span>
-              <span>Code</span>
+            <a class="cta cta-secondary" href="./983_Robotic_Policy_Adaptation.pdf" target="_blank" rel="noopener">
+              <i class="fas fa-file-pdf"></i> Local PDF
             </a>
-          </span>
+            <a class="cta cta-secondary" href="https://github.com/Fascetta/WIZARD" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i> Code
+            </a>
+          </div>
+
+          <div class="stats-row">
+            <article class="stat-card stat-card-green">
+              <h3>~2x</h3>
+              <p>gain on unseen dataset suites</p>
+            </article>
+            <article class="stat-card stat-card-blue">
+              <h3>~14x</h3>
+              <p>gain on unseen tasks (vs MT-VLA)</p>
+            </article>
+            <article class="stat-card stat-card-dark">
+              <h3>0.33</h3>
+              <p>real-world average success (vs 0.17 baseline)</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-media reveal" style="transition-delay: 120ms;">
+          <img src="./static/images/figure1.png" alt="WIZARD pipeline showing meta-training and zero-shot inference in weight space.">
+          <p>
+            WIZARD learns task relationships in weight space by mapping task evidence to LoRA updates.
+          </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="hero teaser">
-    <div class="container is-max-widescreen">
-        <!-- Kept autoplay for the hero video only to ensure immediate first impression -->
-        <video class="teaser-video" autoplay muted loop playsinline poster="./static/images/figure1.png" aria-label="Animation demonstrating the WIZARD process: A language prompt and a single demonstration video are used to generate a task-specific adapter, which is then applied to a robotic policy to execute a task.">
-          <source src="./static/images/inference_animation.mp4" type="video/mp4">
-        </video>
-    </div>
-  </section>
+    <section class="section" id="overview">
+      <div class="container content-narrow reveal">
+        <p class="section-label">Overview</p>
+        <h2 class="section-title">TL;DR<span class="period">.</span></h2>
+        <p>
+          Standard VLA adaptation is bottlenecked by task-specific action labels and test-time optimization.
+          WIZARD removes both: it predicts LoRA weights directly from language + video evidence,
+          then injects them into a frozen policy for zero-shot execution.
+        </p>
+        <p>
+          The method is trained with a meta-dataset of pairs <strong>(task embedding, expert LoRA update)</strong> and adds
+          three robotics-specific design principles: multimodal weight structuring, scale-aware generation,
+          and alignment-oriented supervision in weight space.
+        </p>
+      </div>
+    </section>
 
-  <section class="section" id="tldr">
-      <div class="container content-narrow">
-          <h2 class="title is-3 has-text-centered">TL;DR<span class="red-dot">.</span></h2>
-          <div class="content is-size-5 has-text-centered">
+    <section class="section section-alt" id="method">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Method</p>
+          <h2 class="section-title">How WIZARD Works<span class="period">.</span></h2>
+        </div>
+        <div class="method-grid">
+          <article class="method-step reveal">
+            <h3>1. Build Task Experts</h3>
             <p>
-              WIZARD enables a robot to learn a new task from a single video demonstration, without any fine-tuning. It directly generates the "brain surgery" (policy weights) needed for the robot to adapt, improving performance on unseen tasks by up to <strong>15x</strong> compared to standard methods.
+              Train LoRA experts for meta-train datasets (LIBERO-Goal, LIBERO-Object, LIBERO-10) on top of
+              a frozen VLA backbone.
+            </p>
+          </article>
+          <article class="method-step reveal" style="transition-delay: 90ms;">
+            <h3>2. Learn Weight Mapping</h3>
+            <p>
+              Encode task evidence from prompt and demo video, then train a meta-network to reconstruct
+              expert LoRA updates in weight space.
+            </p>
+          </article>
+          <article class="method-step reveal" style="transition-delay: 180ms;">
+            <h3>3. Zero-Shot Inference</h3>
+            <p>
+              For unseen tasks, infer LoRA weights in one forward pass and inject them into the frozen policy,
+              with no action labels and no gradient updates.
+            </p>
+          </article>
+        </div>
+
+        <div class="pill-grid reveal">
+          <div class="pill"><strong>Multimodal structure</strong> LoRA tensors preserve vision/language/action boundaries.</div>
+          <div class="pill"><strong>Scale-aware synthesis</strong> Predict updates plus per-layer mean/std for stable control.</div>
+          <div class="pill"><strong>Alignment losses</strong> MSE + scale + cosine terms enforce functional directionality.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Evaluation</p>
+          <h2 class="section-title">Zero-Shot Benchmark Results<span class="period">.</span></h2>
+        </div>
+
+        <div class="protocol-card reveal">
+          <h3>Experimental Protocol</h3>
+          <ul>
+            <li>Held-out dataset shift: meta-train on three LIBERO suites, evaluate on the unseen fourth suite.</li>
+            <li>Evaluation uses 50 predefined initial states per task for reproducibility.</li>
+            <li>Baselines: Nearest-Neighbor adapter retrieval and MT-VLA fine-tuning baselines (OpenVLA-OFT and pi0.5).</li>
+          </ul>
+        </div>
+
+        <div class="table-wrap reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>MT-VLA (pi0.5) Avg.</th>
+                <th>WIZARD Avg.</th>
+                <th>Delta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LIBERO-Spatial</td>
+                <td>0.19</td>
+                <td class="wizard-val">0.40</td>
+                <td class="wizard-val">+0.21 (~2.1x)</td>
+              </tr>
+              <tr>
+                <td>LIBERO-Goal</td>
+                <td>0.14</td>
+                <td class="wizard-val">0.22</td>
+                <td class="wizard-val">+0.08 (~1.6x)</td>
+              </tr>
+              <tr>
+                <td>LIBERO-Object</td>
+                <td>0.01</td>
+                <td class="wizard-val">0.03</td>
+                <td class="wizard-val">+0.02 (~3.0x)</td>
+              </tr>
+              <tr>
+                <td>LIBERO-10 (A/B subtasks)</td>
+                <td>0.03/0.03</td>
+                <td class="wizard-val">0.09/0.07</td>
+                <td class="wizard-val">skill gains, composition still hard</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card reveal">
+            <video controls muted loop playsinline preload="metadata">
+              <source src="./static/videos/LIBERO_Spatial/task8_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate.mp4" type="video/mp4">
+            </video>
+            <p>LIBERO-Spatial: pick up the black bowl on the stove and place it on the plate.</p>
+          </article>
+          <article class="video-card reveal" style="transition-delay: 120ms;">
+            <video controls muted loop playsinline preload="metadata">
+              <source src="./static/videos/LIBERO_Object/task5_pick_up_the_orange_juice_and_place_it_in_the_basket.mp4" type="video/mp4">
+            </video>
+            <p>LIBERO-Object: pick up the orange juice and place it in the basket.</p>
+          </article>
+          <article class="video-card reveal" style="transition-delay: 240ms;">
+            <video controls muted loop playsinline preload="metadata">
+              <source src="./static/videos/LIBERO_Goal/task3_put_the_wine_bottle_on_top_of_the_cabinet.mp4" type="video/mp4">
+            </video>
+            <p>LIBERO-Goal: put the wine bottle on top of the cabinet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="real">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Real Robot</p>
+          <h2 class="section-title">Franka Emika Panda Transfer<span class="period">.</span></h2>
+        </div>
+
+        <div class="real-layout">
+          <div class="real-copy reveal">
+            <p>
+              Real deployment uses a 7-DoF Franka Emika Panda with one eye-in-hand Intel RealSense D415
+              and two external D405 cameras. The policy runs at 15 Hz and is upsampled to 1 kHz via velocity
+              interpolation for low-level impedance control.
+            </p>
+            <p>
+              Both baseline and WIZARD start from the same real-domain adapted checkpoint
+              (pi0.5 + 30 adaptation episodes), isolating gains from task-level weight generation.
             </p>
           </div>
-      </div>
-  </section>
 
-  <section class="section light-section" id="real-results">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Real-World Zero-Shot Adaptation<span class="red-dot">.</span></h2>
-      <div class="content has-text-centered">
-        <p>WIZARD smoothly transfers to physical robots, effectively parsing real-world visual demonstrations to generate successful zero-shot policy adaptations.</p>
-      </div>
-      <div class="columns is-multiline is-centered">
-        <!-- Replaced autoplay with the "lazy" class for performance -->
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="real-caption-1"><source src="./static/videos/Real_World/Apple.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-1"><b>Real-World:</b> Pick up the apple</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="real-caption-2"><source src="./static/videos/Real_World/Banana.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-2"><b>Real-World:</b> Pick up the banana</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="real-caption-3"><source src="./static/videos/Real_World/Cup.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-3"><b>Real-World:</b> Pick up the cup</p></div></div>
-      </div>
+          <div class="real-videos">
+            <article class="video-card reveal">
+              <video controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/Real_World/Banana.mp4" type="video/mp4">
+              </video>
+              <p>Real rollout: pick the banana.</p>
+            </article>
+            <article class="video-card reveal" style="transition-delay: 120ms;">
+              <video controls muted loop playsinline preload="metadata">
+                <source src="./static/videos/Real_World/Cup.mp4" type="video/mp4">
+              </video>
+              <p>Real rollout: pick the cup.</p>
+            </article>
+          </div>
+        </div>
 
-      <div class="content content-narrow mt-6">
-        <h3 class="title is-4 has-text-centered">Quantitative Results</h3>
-        <p>Success rates for zero-shot real-world execution. WIZARD effectively generalizes to unseen physical tasks directly from a single visual demonstration.</p>
-      </div>
-      <div class="table-container">
-        <table class="table is-fullwidth is-hoverable has-text-centered">
-          <thead>
-            <tr>
-              <th class="has-text-left">Method</th>
-              <th>Pick up the apple</th>
-              <th>Pick up the banana</th>
-              <th>Pick up the cup</th>
-              <th class="summary-col">Avg.</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="has-text-left"><strong>MT-VLA</strong> (Baseline)</td>
-              <td>0.00</td>
-              <td>0.00</td>
-              <td>0.00</td>
-              <td class="summary-col"><strong>0.00</strong></td>
-            </tr>
-            <tr class="wizard-row">
-              <td class="has-text-left"><strong>WIZARD</strong> (Ours)</td>
-              <td>0.80</td> <td>0.80</td> <td>0.80</td> <td class="summary-col wizard-avg">0.80</td> 
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="results">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Simulation Rollout Demonstrations<span class="red-dot">.</span></h2>
-      <div class="columns is-multiline is-centered">
-        <!-- Replaced autoplay with the "lazy" class -->
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-1"><source src="./static/videos/LIBERO_Spatial/task8_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-1"><b>LIBERO-Spatial:</b> Pick up the black bowl on the stove and place it on the plate</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-2"><source src="./static/videos/LIBERO_Object/task5_pick_up_the_orange_juice_and_place_it_in_the_basket.mp4" type="video/mp4"></video><p class="video-caption" id="caption-2"><b>LIBERO-Object:</b> Pick up the orange juice and place it in the basket</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-3"><source src="./static/videos/LIBERO_Goal/task3_put_the_wine_bottle_on_top_of_the_cabinet.mp4" type="video/mp4"></video><p class="video-caption" id="caption-3"><b>LIBERO-Goal:</b> Put the wine bottle on top of the cabinet</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-4"><source src="./static/videos/LIBERO_Spatial/task4_pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-4"><b>LIBERO-Spatial:</b> Pick up the black bowl on the cookie box and place it on the plate</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-5"><source src="./static/videos/LIBERO_Object/task2_pick_up_the_cream_cheese_and_place_it_in_the_basket.mp4" type="video/mp4"></video><p class="video-caption" id="caption-5"><b>LIBERO-Object:</b> Pick up the cream cheese and place it in the basket</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-6"><source src="./static/videos/LIBERO_Goal/task9_put_the_bowl_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-6"><b>LIBERO-Goal:</b> Put the bowl on the plate</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section light-section">
-    <div class="container content-narrow">
-      <h2 class="title is-3 has-text-centered">Abstract<span class="red-dot">.</span></h2>
-      <div class="content has-text-justified">
-        <p>
-          Modern imitation-based robotic policies are predominantly expert systems: large pretrained Vision-Language-Action (VLA) models typically require test-time fine-tuning on task data to specialize their behavior. We propose a new paradigm for robotic test-time adaptation: <span class="highlight-blue">generating task-specific policy parameters directly in weight space</span>, enabling scalable <span class="highlight-green">zero-shot adaptation to unseen tasks</span>.
-        </p>
-        <p>
-          We introduce <b>WIZARD</b>, a meta-network that generates low-rank adapters for a frozen VLA policy from task evidence composed of language instructions and short demonstration videos. During meta-training, we construct a dataset that pairs task descriptions with their corresponding task-specific LoRA updates. At inference time, given only a prompt and a single video from an unseen task, WIZARD generates the task-specific LoRA adapter in a <span class="highlight-green">single forward pass</span>. Experiments on the LIBERO benchmark show that the generated adapters improve performance by up to <span class="highlight-green">~2x on unseen datasets</span> and up to <span class="highlight-green">~15x on unseen tasks</span>.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section dark-section" id="contributions">
-    <div class="container content-narrow">
-      <h2 class="title is-3 has-text-centered">Key Contributions<span class="red-dot">.</span></h2>
-      <ul class="contributions-list">
-        <li><span class="icon"><i class="fas fa-magic"></i></span><div><strong>Zero-Shot Adaptation in Weight-Space:</strong> A new paradigm for robotic policy adaptation that generates task-specific weights directly, bypassing test-time fine-tuning.</div></li>
-        <li><span class="icon"><i class="fas fa-cogs"></i></span><div><strong>The WIZARD Architecture:</strong> A novel meta-network that conditions a frozen VLA backbone with a generated LoRA adapter from a single video demonstration.</div></li>
-        <li><span class="icon"><i class="fas fa-chart-line"></i></span><div><strong>Strong Empirical Performance:</strong> State-of-the-art zero-shot results on the LIBERO benchmark, demonstrating significant gains in generalization and efficiency.</div></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section" id="method">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">The WIZARD Architecture<span class="red-dot">.</span></h2>
-      <img class="method-diagram" src="./static/images/figure1.png" alt="WIZARD Architecture Diagram: Showing how prompt and video are encoded into task embeddings, which the Adapter Generator uses to synthesize LoRA weights injected into a frozen VLA policy.">
-      <div class="container content-narrow">
-        <div class="content">
-          <p>WIZARD re-frames robotic adaptation as a direct parameter inference problem. Instead of slow, gradient-based fine-tuning, it learns to map task evidence directly to the parameter delta (a LoRA adapter) needed to specialize a general policy. This is done in three stages:</p>
-          <ol>
-            <li><strong>Perception:</strong> A multimodal encoder processes a language prompt and a single demonstration video, creating a compact "task embedding" that captures the task's semantics and kinematics.</li>
-            <li><strong>Reasoning:</strong> The core meta-network, the Adapter Generator, takes this task embedding and synthesizes the weights for a LoRA adapter in a single forward pass.</li>
-            <li><strong>Action:</strong> The generated adapter is injected into the frozen, pre-trained VLA backbone. The resulting specialized policy can then be rolled out to execute the new task, zero-shot.</li>
-          </ol>
+        <div class="table-wrap reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Banana</th>
+                <th>Apple</th>
+                <th>Marker</th>
+                <th>Cup</th>
+                <th>Apple→Cup</th>
+                <th>Avg.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>pi0.5 + real-domain adaptation</td>
+                <td>0.27</td>
+                <td>0.13</td>
+                <td>0.10</td>
+                <td>0.30</td>
+                <td>0.07</td>
+                <td>0.17</td>
+              </tr>
+              <tr>
+                <td class="wizard-val">WIZARD</td>
+                <td class="wizard-val">0.53</td>
+                <td class="wizard-val">0.33</td>
+                <td class="wizard-val">0.17</td>
+                <td class="wizard-val">0.63</td>
+                <td class="wizard-val">0.17</td>
+                <td class="wizard-val">0.33</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="table-note">30 evaluation trials per real task.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section light-section" id="quantitative">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Zero-Shot Generalization: LIBERO-Spatial<span class="red-dot">.</span></h2>
-      <div class="content content-narrow">
-        <p>We evaluate against standard fine-tuning under strict held-out distribution shifts. In <strong>LIBERO-Spatial</strong>, the baseline MT-VLA struggles to adapt without gradient updates. Conversely, WIZARD's generated adapters correctly interpret relational spatial instructions and adapt kinematics, achieving a <strong>~2x performance increase</strong> over the baseline entirely zero-shot.</p>
-      </div>
-      <div class="table-container">
-        <table class="table is-fullwidth is-hoverable has-text-centered">
-          <thead><tr><th class="has-text-left">Method</th><th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>T8</th><th>T9</th><th>T10</th><th class="summary-col">Avg.</th></tr></thead>
-          <tbody>
-            <tr><td class="has-text-left"><strong>MT-VLA</strong> (Baseline)</td><td>0.22</td><td>0.00</td><td>0.56</td><td>0.86</td><td>0.00</td><td>0.02</td><td>0.00</td><td>0.18</td><td>0.02</td><td>0.00</td><td class="summary-col"><strong>0.19</strong></td></tr>
-            <tr class="wizard-row"><td class="has-text-left"><strong>WIZARD</strong> (Ours)</td><td>0.90</td><td>0.12</td><td>0.82</td><td>0.84</td><td>0.08</td><td>0.28</td><td>0.10</td><td>0.76</td><td>0.08</td><td>0.00</td><td class="summary-col wizard-avg">0.40</td></tr>
-            <tr class="upper-bound-row"><td class="has-text-left">π₀.₅ Experts (Upper Bound)</td><td>1.00</td><td>0.98</td><td>1.00</td><td>0.94</td><td>0.92</td><td>0.98</td><td>0.96</td><td>0.98</td><td>0.96</td><td>0.96</td><td class="summary-col">0.97</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+    <section class="section" id="analysis">
+      <div class="container content-narrow reveal">
+        <p class="section-label">Analysis</p>
+        <h2 class="section-title">Data Efficiency and Warm Start<span class="period">.</span></h2>
+        <p>
+          On LIBERO-Spatial Task 1, WIZARD reaches 90% success without task-specific gradient updates,
+          while MT-VLA starts around 22% and needs roughly 25 demonstrations to match that level.
+        </p>
+        <p>
+          On hard tasks where zero-shot fails (for both approaches), WIZARD-generated adapters still provide
+          better initialization: in Task 10, expert-level performance is reached in 7 fine-tuning steps
+          vs 9 from MT-VLA initialization.
+        </p>
 
-  <section class="section">
-      <div class="container content-narrow">
-          <h2 class="title is-3 has-text-centered">Warm Start Adaptation & Data Efficiency<span class="red-dot">.</span></h2>
-          <div class="content has-text-justified">
-              <p>While WIZARD excels at zero-shot adaptation, the generated adapters also serve as an exceptionally powerful <span class="highlight-blue">warm start initialization</span> for traditional fine-tuning. When additional task demonstrations are available, initializing the policy with WIZARD's generated weights drastically improves <span class="highlight-blue">data efficiency</span>. Our experiments demonstrate that fine-tuning from a WIZARD prior requires an order of magnitude fewer gradient steps and significantly fewer demonstrations to reach peak expert performance compared to fine-tuning a standard VLA backbone from scratch, highlighting its extreme flexibility across both zero-shot and few-shot regimes.</p>
-          </div>
+        <h3 class="mini-title">Limitations</h3>
+        <ul>
+          <li>Performance depends on task evidence quality; ambiguous demonstrations can produce weak adapters.</li>
+          <li>Single-task expert generation struggles with long-horizon compositional sequencing (especially LIBERO-10).</li>
+          <li>Future direction: richer task representations and compositional expert synthesis.</li>
+        </ul>
       </div>
-  </section>
-  
-  <section class="section dark-section" id="citation">
-    <div class="container content-narrow">
-      <h2 class="title">Citation<span class="red-dot">.</span></h2>
-      <pre><code>@misc{bianchi2026roboticpolicyadaptationweightspace,
-      title={Robotic Policy Adaptation via Weight-Space Meta-Learning}, 
-      author={Christian Bianchi and Siamak Yousefi and Alessio Sampieri and Andrea Roberti and Luca Rigazio and Fabio Galasso and Luca Franco},
-      year={2026},
-      eprint={2606.07217},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2606.07217}, 
+    </section>
+
+    <section class="section section-alt" id="citation">
+      <div class="container content-narrow reveal">
+        <p class="section-label">Citation</p>
+        <h2 class="section-title">BibTeX<span class="period">.</span></h2>
+        <pre><code>@misc{bianchi2026roboticpolicyadaptationweightspace,
+  title={Robotic Policy Adaptation via Weight-Space Meta-Learning},
+  author={Christian Bianchi and Siamak Yousefi and Alessio Sampieri and Andrea Roberti and Luca Rigazio and Fabio Galasso and Luca Franco},
+  year={2026},
+  eprint={2606.07217},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2606.07217}
 }</code></pre>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="content has-text-centered">
-        <p>Website template based on <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>. Branding by ItalAI Labs.</p>
       </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        WIZARD project page.
+      </p>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script>
-    // Bulma mobile navbar toggle
-    document.addEventListener('DOMContentLoaded', () => {
-      const burger = document.querySelector('.navbar-burger');
-      const menu = document.querySelector('.navbar-menu');
-      burger.addEventListener('click', () => {
-        burger.classList.toggle('is-active');
-        menu.classList.toggle('is-active');
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileNav = document.getElementById("mobile-nav");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileNav.classList.toggle("is-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileNav.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
       });
     });
 
-    // IntersectionObserver for lazy-loading and pausing off-screen videos
-    document.addEventListener("DOMContentLoaded", function() {
-      let lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
-
-      if ("IntersectionObserver" in window) {
-        let lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
-          entries.forEach(function(videoEntry) {
-            let video = videoEntry.target;
-            if (videoEntry.isIntersecting) {
-              video.play().catch(error => console.log("Autoplay prevented:", error));
-            } else {
-              video.pause();
-            }
-          });
-        }, { rootMargin: "0px 0px -10% 0px" });
-
-        lazyVideos.forEach(function(lazyVideo) {
-          lazyVideoObserver.observe(lazyVideo);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
         });
-      }
-    });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px 80px 0px" }
+    );
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
