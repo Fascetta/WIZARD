@@ -223,9 +223,9 @@
 
   <section class="section">
       <div class="container content-narrow">
-          <h2 class="title is-3 has-text-centered">Ablations<span class="red-dot">.</span></h2>
+          <h2 class="title is-3 has-text-centered">Warm Start Adaptation & Data Efficiency<span class="red-dot">.</span></h2>
           <div class="content has-text-justified">
-              <p>Our analysis reveals that <span class="highlight-blue">task-level embeddings</span> preserve discriminative semantics necessary for effective parameter generation, outperforming broader dataset-level conditioning. Furthermore, a <span class="highlight-blue">single demonstration episode</span> is sufficient to construct an informative task embedding; expanding the support size yields diminishing returns. Finally, ablating the input modalities confirms that both <span class="highlight-blue">text</span> (providing high-level intent) and <span class="highlight-blue">visual demonstrations</span> (providing geometric and kinematic priors) are critical to prevent performance collapse.</p>
+              <p>While WIZARD excels at zero-shot adaptation, the generated adapters also serve as an exceptionally powerful <span class="highlight-blue">warm start initialization</span> for traditional fine-tuning. When additional task demonstrations are available, initializing the policy with WIZARD's generated weights drastically improves <span class="highlight-blue">data efficiency</span>. Our experiments demonstrate that fine-tuning from a WIZARD prior requires an order of magnitude fewer gradient steps and significantly fewer demonstrations to reach peak expert performance compared to fine-tuning a standard VLA backbone from scratch, highlighting its extreme flexibility across both zero-shot and few-shot regimes.</p>
           </div>
       </div>
   </section>
