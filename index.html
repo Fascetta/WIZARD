@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning</title>
@@ -7,6 +7,19 @@
   <meta name="keywords" content="WIZARD, Robotics, VLA, Meta-Learning, Zero-Shot Adaptation, ItalAI">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://your-domain.github.io/WIZARD/">
+  <meta property="og:title" content="WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning">
+  <meta property="og:description" content="WIZARD generates a task-specific policy from a prompt and a single video demonstration via weight-space meta-learning.">
+  <meta property="og:image" content="https://your-domain.github.io/WIZARD/static/images/social_preview.png">
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://your-domain.github.io/WIZARD/">
+  <meta property="twitter:title" content="WIZARD: Robotic Policy Adaptation via Weight-Space Meta-Learning">
+  <meta property="twitter:description" content="WIZARD generates a task-specific policy from a prompt and a single video demonstration via weight-space meta-learning.">
+  <meta property="twitter:image" content="https://your-domain.github.io/WIZARD/static/images/social_preview.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -15,13 +28,49 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-
   <link rel="icon" href="./static/images/favicon.png">
+
+  <!-- Modern UI Polish CSS -->
+  <style>
+    /* Glassmorphism Navbar */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.8) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transition: background 0.3s ease;
+    }
+    
+    /* Gradient Typography for WIZARD */
+    .gradient-text {
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Video Hover States & Polish */
+    .video-container {
+      overflow: hidden;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #f5f5f5; /* Placeholder color before load */
+    }
+    .video-container:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      z-index: 2;
+    }
+    .video-container video {
+      border-radius: 12px;
+      display: block;
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body>
-
-  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top glass-nav" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
@@ -50,7 +99,7 @@
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
-        <h1 class="title is-1 publication-title">WIZARD<span class="red-dot">.</span></h1>
+        <h1 class="title is-1 publication-title"><span class="gradient-text">WIZARD</span><span class="red-dot">.</span></h1>
         <h2 class="subtitle is-3 publication-subtitle">Robotic Policy Adaptation<br>via Weight-Space Meta-Learning</h2>
         
         <div class="is-size-5 publication-authors">
@@ -84,6 +133,7 @@
 
   <section class="hero teaser">
     <div class="container is-max-widescreen">
+        <!-- Kept autoplay for the hero video only to ensure immediate first impression -->
         <video class="teaser-video" autoplay muted loop playsinline poster="./static/images/figure1.png" aria-label="Animation demonstrating the WIZARD process: A language prompt and a single demonstration video are used to generate a task-specific adapter, which is then applied to a robotic policy to execute a task.">
           <source src="./static/images/inference_animation.mp4" type="video/mp4">
         </video>
@@ -108,9 +158,10 @@
         <p>WIZARD smoothly transfers to physical robots, effectively parsing real-world visual demonstrations to generate successful zero-shot policy adaptations.</p>
       </div>
       <div class="columns is-multiline is-centered">
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="real-caption-1"><source src="./static/videos/Real_World/Apple.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-1"><b>Real-World:</b> Pick up the apple</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="real-caption-2"><source src="./static/videos/Real_World/Banana.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-2"><b>Real-World:</b> Pick up the banana</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="real-caption-3"><source src="./static/videos/Real_World/Cup.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-3"><b>Real-World:</b> Pick up the cup</p></div></div>
+        <!-- Replaced autoplay with the "lazy" class for performance -->
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="real-caption-1"><source src="./static/videos/Real_World/Apple.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-1"><b>Real-World:</b> Pick up the apple</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="real-caption-2"><source src="./static/videos/Real_World/Banana.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-2"><b>Real-World:</b> Pick up the banana</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="real-caption-3"><source src="./static/videos/Real_World/Cup.mp4" type="video/mp4"></video><p class="video-caption" id="real-caption-3"><b>Real-World:</b> Pick up the cup</p></div></div>
       </div>
 
       <div class="content content-narrow mt-6">
@@ -138,11 +189,11 @@
             </tr>
             <tr class="wizard-row">
               <td class="has-text-left"><strong>WIZARD</strong> (Ours)</td>
-              <td>0.80</td> <td>0.80</td> <td>0.80</td> <td class="summary-col wizard-avg">0.80</td> </tr>
+              <td>0.80</td> <td>0.80</td> <td>0.80</td> <td class="summary-col wizard-avg">0.80</td> 
+            </tr>
           </tbody>
         </table>
       </div>
-
     </div>
   </section>
 
@@ -150,12 +201,13 @@
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Simulation Rollout Demonstrations<span class="red-dot">.</span></h2>
       <div class="columns is-multiline is-centered">
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="caption-1"><source src="./static/videos/LIBERO_Spatial/task8_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-1"><b>LIBERO-Spatial:</b> Pick up the black bowl on the stove and place it on the plate</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="caption-2"><source src="./static/videos/LIBERO_Object/task5_pick_up_the_orange_juice_and_place_it_in_the_basket.mp4" type="video/mp4"></video><p class="video-caption" id="caption-2"><b>LIBERO-Object:</b> Pick up the orange juice and place it in the basket</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="caption-3"><source src="./static/videos/LIBERO_Goal/task3_put_the_wine_bottle_on_top_of_the_cabinet.mp4" type="video/mp4"></video><p class="video-caption" id="caption-3"><b>LIBERO-Goal:</b> Put the wine bottle on top of the cabinet</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="caption-4"><source src="./static/videos/LIBERO_Spatial/task4_pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-4"><b>LIBERO-Spatial:</b> Pick up the black bowl on the cookie box and place it on the plate</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="caption-5"><source src="./static/videos/LIBERO_Object/task2_pick_up_the_cream_cheese_and_place_it_in_the_basket.mp4" type="video/mp4"></video><p class="video-caption" id="caption-5"><b>LIBERO-Object:</b> Pick up the cream cheese and place it in the basket</p></div></div>
-        <div class="column is-one-third"><div class="video-container"><video autoplay controls muted loop playsinline loading="lazy" preload="metadata" aria-labelledby="caption-6"><source src="./static/videos/LIBERO_Goal/task9_put_the_bowl_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-6"><b>LIBERO-Goal:</b> Put the bowl on the plate</p></div></div>
+        <!-- Replaced autoplay with the "lazy" class -->
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-1"><source src="./static/videos/LIBERO_Spatial/task8_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-1"><b>LIBERO-Spatial:</b> Pick up the black bowl on the stove and place it on the plate</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-2"><source src="./static/videos/LIBERO_Object/task5_pick_up_the_orange_juice_and_place_it_in_the_basket.mp4" type="video/mp4"></video><p class="video-caption" id="caption-2"><b>LIBERO-Object:</b> Pick up the orange juice and place it in the basket</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-3"><source src="./static/videos/LIBERO_Goal/task3_put_the_wine_bottle_on_top_of_the_cabinet.mp4" type="video/mp4"></video><p class="video-caption" id="caption-3"><b>LIBERO-Goal:</b> Put the wine bottle on top of the cabinet</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-4"><source src="./static/videos/LIBERO_Spatial/task4_pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-4"><b>LIBERO-Spatial:</b> Pick up the black bowl on the cookie box and place it on the plate</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-5"><source src="./static/videos/LIBERO_Object/task2_pick_up_the_cream_cheese_and_place_it_in_the_basket.mp4" type="video/mp4"></video><p class="video-caption" id="caption-5"><b>LIBERO-Object:</b> Pick up the cream cheese and place it in the basket</p></div></div>
+        <div class="column is-one-third"><div class="video-container"><video class="lazy" controls muted loop playsinline preload="metadata" aria-labelledby="caption-6"><source src="./static/videos/LIBERO_Goal/task9_put_the_bowl_on_the_plate.mp4" type="video/mp4"></video><p class="video-caption" id="caption-6"><b>LIBERO-Goal:</b> Put the bowl on the plate</p></div></div>
       </div>
     </div>
   </section>
@@ -188,7 +240,7 @@
   <section class="section" id="method">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">The WIZARD Architecture<span class="red-dot">.</span></h2>
-      <img class="method-diagram" src="./static/images/figure1.png" alt="WIZARD Architecture Diagram">
+      <img class="method-diagram" src="./static/images/figure1.png" alt="WIZARD Architecture Diagram: Showing how prompt and video are encoded into task embeddings, which the Adapter Generator uses to synthesize LoRA weights injected into a frozen VLA policy.">
       <div class="container content-narrow">
         <div class="content">
           <p>WIZARD re-frames robotic adaptation as a direct parameter inference problem. Instead of slow, gradient-based fine-tuning, it learns to map task evidence directly to the parameter delta (a LoRA adapter) needed to specialize a general policy. This is done in three stages:</p>
@@ -197,7 +249,7 @@
             <li><strong>Reasoning:</strong> The core meta-network, the Adapter Generator, takes this task embedding and synthesizes the weights for a LoRA adapter in a single forward pass.</li>
             <li><strong>Action:</strong> The generated adapter is injected into the frozen, pre-trained VLA backbone. The resulting specialized policy can then be rolled out to execute the new task, zero-shot.</li>
           </ol>
-          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -253,6 +305,7 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
     // Bulma mobile navbar toggle
     document.addEventListener('DOMContentLoaded', () => {
@@ -262,6 +315,28 @@
         burger.classList.toggle('is-active');
         menu.classList.toggle('is-active');
       });
+    });
+
+    // IntersectionObserver for lazy-loading and pausing off-screen videos
+    document.addEventListener("DOMContentLoaded", function() {
+      let lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+
+      if ("IntersectionObserver" in window) {
+        let lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(videoEntry) {
+            let video = videoEntry.target;
+            if (videoEntry.isIntersecting) {
+              video.play().catch(error => console.log("Autoplay prevented:", error));
+            } else {
+              video.pause();
+            }
+          });
+        }, { rootMargin: "0px 0px -10% 0px" });
+
+        lazyVideos.forEach(function(lazyVideo) {
+          lazyVideoObserver.observe(lazyVideo);
+        });
+      }
     });
   </script>
 </body>
