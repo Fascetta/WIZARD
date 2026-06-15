@@ -58,7 +58,6 @@
         <div class="main-hero-grid reveal">
           
           <div class="main-hero-content">
-            <p class="section-label" style="color: var(--standard-green-alt); margin-bottom: 1rem;">Featured Research</p>
             
             <h1 class="h1-size uppercase" style="color: var(--standard-light); margin-top: 0; line-height: 1.05;">
               ROBOTIC POLICY <span class="highlight-green">ADAPTATION</span><br/>
@@ -66,7 +65,7 @@
               WEIGHT-SPACE<br/><span class="highlight-green">META-LEARNING</span><span class="period">.</span>
             </h1>
 
-            <p class="medium weak" style="color: var(--standard-light); opacity: 0.9; margin-top: 1.5rem; max-width: 600px;">
+            <p class="medium weak" style="font-style: italic; color: var(--standard-green-alt); opacity: 0.9; margin-top: 1.5rem; max-width: 600px;">
               WIZARD reframes test-time adaptation as parameter inference: from one instruction and one short video,
               it generates a task-specific LoRA adapter in a single forward pass.
             </p>
@@ -88,9 +87,6 @@
             <div class="hero-actions" style="display: flex; gap: 1rem; flex-wrap: wrap;">
               <a class="cta-button" href="https://arxiv.org/abs/2606.07217" target="_blank" rel="noopener">
                 <i class="ai ai-archive"></i> Paper
-              </a>
-              <a class="cta-button-alt" href="https://github.com/Fascetta/WIZARD" target="_blank" rel="noopener">
-                <i class="fab fa-github"></i> Code
               </a>
             </div>
           </div>
@@ -119,101 +115,129 @@
       </div>
     </section>
 
-    <section class="section section-alt" id="method">
+    <section class="section section-dark" id="method">
       <div class="container content">
         <div class="reveal">
-          <p class="section-label">Method</p>
-          <h2 class="section-title">How WIZARD Works<span class="period">.</span></h2>
+          <p class="section-label" style="color: var(--standard-green);">Method</p>
+          <h2 class="section-title" style="color: var(--standard-light);">How <span style="color: var(--standard-blue); font-style: italic;">WIZARD</span> Works<span class="period">.</span></h2>
         </div>
         
         <div class="card-grid reveal">
-          <article class="card blue">
-            <h3>01. Build Task Experts</h3>
+          <article class="card card-01">
+            <h3>BUILD TASK EXPERTS</h3>
             <p><strong>Expert construction:</strong> train LoRA experts for meta-train datasets (<span style="font-weight:bold;">LIBERO-Goal</span>, <span style="font-weight:bold;">LIBERO-Object</span>, <span style="font-weight:bold;">LIBERO-10</span>) on top of a frozen VLA backbone.</p>
           </article>
-          <article class="card dark">
-            <h3>02. Learn Weight Mapping</h3>
-            <p><strong>Weight inference learning:</strong> encode task evidence from prompt and demo video, then train a meta-network to reconstruct expert LoRA updates in <span style="font-weight:bold; color: var(--standard-blue)">weight space</span>.</p>
+          <article class="card card-02">
+            <h3>LEARN WEIGHT MAPPING</h3>
+            <p><strong>Weight inference learning:</strong> encode task evidence from prompt and demo video, then train a meta-network to reconstruct expert LoRA updates in <span style="font-weight:bold;">weight space</span>.</p>
           </article>
-          <article class="card green">
-            <h3>03. Zero-Shot Inference</h3>
+          <article class="card card-03">
+            <h3>ZERO-SHOT INFERENCE</h3>
             <p><strong>Deployment-time adaptation:</strong> infer LoRA weights in one forward pass and inject them into the frozen policy, with <span style="font-weight:bold;">no action labels</span> and <span style="font-weight:bold;">no gradient updates</span>.</p>
           </article>
         </div>
 
-        <div class="pill-grid reveal" style="margin-top: 2rem;">
-          <div class="pill"><strong>Multimodal structure:</strong> LoRA tensors preserve vision/language/action boundaries.</div>
-          <div class="pill"><strong>Scale-aware synthesis:</strong> Predict updates plus per-layer mean/std for stable control.</div>
-          <div class="pill"><strong>Alignment losses:</strong> MSE + scale + cosine terms enforce functional directionality.</div>
+        <div class="pill-grid reveal" style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">  
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(106, 124, 255, 0.25); border-radius: 12px; padding: 1.2rem; color: var(--standard-light); font-family: var(--body-family); font-size: 0.9rem; line-height: 1.6;">
+            <strong style="color: var(--standard-blue); font-family: var(--header-family); font-size: 14px; font-weight: 800; display: block; margin-bottom: 0.4rem; text-transform: uppercase;">
+              Multimodal structure
+            </strong> 
+            LoRA tensors preserve vision / language / action boundaries.
+          </div>
+          
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(198, 255, 224, 0.25); border-radius: 12px; padding: 1.2rem; color: var(--standard-light); font-family: var(--body-family); font-size: 0.9rem; line-height: 1.6;">
+            <strong style="color: var(--standard-green-alt); font-family: var(--header-family); font-size: 14px; font-weight: 800; display: block; margin-bottom: 0.4rem; text-transform: uppercase;">
+              Scale-aware synthesis
+            </strong> 
+            Predict updates plus per-layer mean/std for stable control.
+          </div>
+          
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(50, 182, 146, 0.25); border-radius: 12px; padding: 1.2rem; color: var(--standard-light); font-family: var(--body-family); font-size: 0.9rem; line-height: 1.6;">
+            <strong style="color: var(--standard-green); font-family: var(--header-family); font-size: 14px; font-weight: 800; display: block; margin-bottom: 0.4rem; text-transform: uppercase;">
+              Alignment losses
+            </strong> 
+            MSE + scale + cosine terms enforce functional directionality.
+          </div>
+
         </div>
       </div>
     </section>
 
     <section class="section" id="results">
       <div class="container">
+        
         <div class="reveal">
           <p class="section-label">Evaluation</p>
-          <h2 class="section-title">Zero-Shot Benchmark Results<span class="period">.</span></h2>
+          <h2 class="section-title"><span style="color: var(--standard-blue); font-style: italic;">Zero-Shot</span> Benchmark Results<span class="period">.</span></h2>
         </div>
 
-        <div class="protocol-card reveal">
-          <h3>Experimental Protocol</h3>
+        <!-- 1. Protocol Card -->
+        <div class="protocol-card reveal" style="background: var(--standard-blue); border: none;">
+          <h3 style="font-family: var(--header-family); font-weight: 800; color: var(--standard-light);">Experimental Protocol</h3>
           <div class="protocol-grid">
-            <article class="protocol-item">
-              <h4>Held-Out Shift</h4>
-              <p><strong>Split rule:</strong> meta-train on three <span class="highlight-keyword">LIBERO</span> suites and evaluate on the unseen fourth suite.</p>
+            <article class="protocol-item" style="background: var(--standard-dark); border: none;">
+              <h4 style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); margin-bottom: 0.35rem;">Held-Out Shift</h4>
+              <p style="font-family: var(--body-family); color: var(--standard-light);">
+                <strong style="color: var(--standard-light);">Split rule:</strong> meta-train on three <span class="highlight-keyword" style="color: var(--standard-green-alt);">LIBERO</span> suites and evaluate on the unseen fourth suite.
+              </p>
             </article>
-            <article class="protocol-item">
-              <h4>Reproducible Evaluation</h4>
-              <p><strong>Fixed starts:</strong> each task is tested on 50 predefined initial states to preserve comparability.</p>
+            <article class="protocol-item" style="background: var(--standard-dark); border: none;">
+              <h4 style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); margin-bottom: 0.35rem;">Reproducible Evaluation</h4>
+              <p style="font-family: var(--body-family); color: var(--standard-light);">
+                <strong style="color: var(--standard-light);">Fixed starts:</strong> each task is tested on 50 predefined initial states to preserve comparability.
+              </p>
             </article>
-            <article class="protocol-item">
-              <h4>Baselines</h4>
-              <p><strong>Reference methods:</strong> nearest-neighbor adapter retrieval and MT-VLA fine-tuning with <span class="highlight-keyword">OpenVLA-OFT</span> and <span class="highlight-keyword">pi0.5</span>.</p>
+            <article class="protocol-item" style="background: var(--standard-dark); border: none;">
+              <h4 style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); margin-bottom: 0.35rem;">Baselines</h4>
+              <p style="font-family: var(--body-family); color: var(--standard-light);">
+                <strong style="color: var(--standard-light);">Reference methods:</strong> nearest-neighbor adapter retrieval and MT-VLA fine-tuning with <span class="highlight-keyword" style="color: var(--standard-green-alt);">OpenVLA-OFT</span> and <span class="highlight-keyword" style="color: var(--standard-green-alt);">pi0.5</span>.
+              </p>
             </article>
           </div>
         </div>
 
-        <div class="table-wrap reveal">
-          <table>
-            <thead>
+        <!-- 2. Table -->
+        <div class="table-wrap reveal" style="border: none; border-radius: 16px; overflow-x: auto; overflow-y: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-top: 2rem;">
+          <table style="background: #ffffff; width: 100%;">
+            <thead style="background: var(--standard-blue);">
               <tr>
-                <th>Dataset</th>
-                <th>MT-VLA (pi0.5) Avg.</th>
-                <th>WIZARD Avg.</th>
-                <th>Delta</th>
+                <th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">Dataset</th>
+                <th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">MT-VLA (pi0.5) Avg.</th>
+                <th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">WIZARD Avg.</th>
+                <th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">Delta</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style="font-family: var(--body-family);">
               <tr>
-                <td>LIBERO-Spatial</td>
-                <td>0.19</td>
-                <td class="wizard-val"><span class="highlight-result">0.40</span></td>
-                <td class="wizard-val"><span class="highlight-result">+0.21 (~2.1x)</span></td>
+                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Spatial</td>
+                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.19</td>
+                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.40</span></td>
+                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.21 (~2.1x)</span></td>
               </tr>
               <tr>
-                <td>LIBERO-Goal</td>
-                <td>0.14</td>
-                <td class="wizard-val"><span class="highlight-result">0.22</span></td>
-                <td class="wizard-val"><span class="highlight-result">+0.08 (~1.6x)</span></td>
+                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Goal</td>
+                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.14</td>
+                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.22</span></td>
+                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.08 (~1.6x)</span></td>
               </tr>
               <tr>
-                <td>LIBERO-Object</td>
-                <td>0.01</td>
-                <td class="wizard-val"><span class="highlight-result">0.03</span></td>
-                <td class="wizard-val"><span class="highlight-result">+0.02 (~3.0x)</span></td>
+                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Object</td>
+                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.01</td>
+                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.03</span></td>
+                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.02 (~3.0x)</span></td>
               </tr>
               <tr>
-                <td>LIBERO-10 (A/B subtasks)</td>
-                <td>0.03/0.03</td>
-                <td class="wizard-val"><span class="highlight-result">0.09/0.07</span></td>
-                <td class="wizard-val"><span class="highlight-result">+0.06/+0.04</span></td>
+                <td style="padding: 1rem; font-weight: 500;">LIBERO-10 (A/B subtasks)</td>
+                <td style="padding: 1rem;">0.03/0.03</td>
+                <td class="wizard-val" style="padding: 1rem;"><span class="highlight-result">0.09/0.07</span></td>
+                <td class="wizard-val" style="padding: 1rem;"><span class="highlight-result">+0.06/+0.04</span></td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="video-grid">
+        <!-- 3. Videos -->
+        <div class="video-grid" style="margin-top: 2rem;">
           <article class="video-card reveal">
             <video controls muted loop playsinline preload="metadata">
               <source src="./static/videos/LIBERO_Spatial/task8_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate.mp4" type="video/mp4">
@@ -233,6 +257,7 @@
             <p><strong>Goal-conditioned behavior</strong><span class="caption-sep">|</span> Wine bottle <span class="highlight-keyword">to cabinet top</span>.</p>
           </article>
         </div>
+
       </div>
     </section>
 
@@ -240,75 +265,84 @@
       <div class="container project-content">
         <div class="reveal">
           <p class="section-label">Real Robot</p>
-          <h2 class="section-title project-title">Franka Emika Panda Transfer<span class="period">.</span></h2>
+          <h2 class="section-title project-title" style="color: var(--standard-light) !important;">Franka Emika Panda <span style="color: var(--standard-blue); font-style: italic;">Transfer</span><span class="period">.</span></h2>
         </div>
 
-        <div class="project-body reveal">
-          <div class="real-copy">
-            <p>
+        <div class="project-body reveal" style="align-items: stretch;">
+          
+          <div class="real-copy" style="background: var(--standard-blue); border: none; border-radius: 16px; padding: 1.5rem; min-width: 0; display: flex; flex-direction: column; justify-content: center;">
+            <p style="color: var(--standard-light);">
               Both baseline and WIZARD start from the same pi0.5 checkpoint
-              (<span class="highlight-result">+ 30 adaptation episodes</span>), isolating gains from task-level weight generation.
+              (<span style="color: var(--standard-green-alt); font-weight: 700;">+ 30 adaptation episodes</span>), isolating gains from task-level weight generation.
             </p>
             
             <div class="real-videos" style="margin-top: 1.5rem;">
-              <article class="video-card">
+              <article class="video-card" style="background: var(--standard-dark); border: none;">
                 <video controls muted loop playsinline preload="metadata">
                   <source src="./static/videos/Real_World/Banana.mp4" type="video/mp4">
                 </video>
-                <p><strong>Grasp and lift</strong><span class="caption-sep">|</span> Robust banana pickup from clutter.</p>
+                <p style="color: var(--standard-light);">
+                  <strong style="color: var(--standard-light);">Grasp and lift</strong><span class="caption-sep" style="color: var(--standard-green-alt);">|</span> Robust banana pickup from clutter.
+                </p>
               </article>
-              <article class="video-card">
+              <article class="video-card" style="background: var(--standard-dark); border: none;">
                 <video controls muted loop playsinline preload="metadata">
                   <source src="./static/videos/Real_World/Cup.mp4" type="video/mp4">
                 </video>
-                <p><strong>Reach and pick</strong><span class="caption-sep">|</span> Stable cup pickup in real scene.</p>
+                <p style="color: var(--standard-light);">
+                  <strong style="color: var(--standard-light);">Reach and pick</strong><span class="caption-sep" style="color: var(--standard-green-alt);">|</span> Stable cup pickup in real scene.
+                </p>
               </article>
             </div>
           </div>
 
-          <div class="project-stats">
-            <div class="stat-card stat-card--green">
+          <div class="project-stats" style="min-width: 0; display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+            <div class="stat-card stat-card--green" style="flex: 1; display: flex; flex-direction: column; justify-content: center; border-radius: 12px;">
               <div class="stat-number"><span class="stat-approx">~</span>2x</div>
               <div class="stat-label">Gain on unseen dataset suites</div>
             </div>
-            <div class="stat-card stat-card--blue">
+            <div class="stat-card stat-card--blue" style="flex: 1; display: flex; flex-direction: column; justify-content: center; border-radius: 12px;">
               <div class="stat-number"><span class="stat-approx">~</span>14x</div>
               <div class="stat-label">Gain on unseen tasks (vs MT-VLA)</div>
+            </div>
+            <div class="stat-card stat-card--green" style="flex: 1; display: flex; flex-direction: column; justify-content: center; border-radius: 12px;">
+              <div class="stat-number">0.33</div>
+              <div class="stat-label">Real-world avg. success (vs 0.17)</div>
             </div>
           </div>
         </div>
 
-        <div class="table-wrap reveal">
-          <table>
-            <thead>
+        <div class="table-wrap reveal" style="border: none; border-radius: 12px; overflow-x: auto; overflow-y: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); width: fit-content; margin: 2rem auto 0; box-sizing: border-box;">
+          <table style="background: #ffffff; white-space: nowrap;">
+            <thead style="background: var(--standard-blue);">
               <tr>
-                <th>Method</th>
-                <th>Banana</th>
-                <th>Apple</th>
-                <th>Marker</th>
-                <th>Cup</th>
-                <th>Apple→Cup</th>
-                <th>Avg.</th>
+                <th style="font-family: var(--header-family); font-size: 13px; font-weight: 800; color: var(--standard-light); padding: 0.6rem 1rem;">Method</th>
+                <th style="font-family: var(--header-family); font-size: 13px; font-weight: 800; color: var(--standard-light); padding: 0.6rem 1rem;">Banana</th>
+                <th style="font-family: var(--header-family); font-size: 13px; font-weight: 800; color: var(--standard-light); padding: 0.6rem 1rem;">Apple</th>
+                <th style="font-family: var(--header-family); font-size: 13px; font-weight: 800; color: var(--standard-light); padding: 0.6rem 1rem;">Marker</th>
+                <th style="font-family: var(--header-family); font-size: 13px; font-weight: 800; color: var(--standard-light); padding: 0.6rem 1rem;">Cup</th>
+                <th style="font-family: var(--header-family); font-size: 13px; font-weight: 800; color: var(--standard-light); padding: 0.6rem 1rem;">Apple→Cup</th>
+                <th style="font-family: var(--header-family); font-size: 13px; font-weight: 800; color: var(--standard-light); padding: 0.6rem 1rem;">Avg.</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style="font-family: var(--body-family); font-size: 14px;">
               <tr>
-                <td>pi0.5 baseline</td>
-                <td>0.27</td>
-                <td>0.13</td>
-                <td>0.10</td>
-                <td>0.30</td>
-                <td>0.07</td>
-                <td>0.17</td>
+                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500; color: var(--standard-dark);">pi0.5 baseline</td>
+                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.27</td>
+                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.13</td>
+                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.10</td>
+                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.30</td>
+                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.07</td>
+                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.17</td>
               </tr>
               <tr>
-                <td class="wizard-val">WIZARD</td>
-                <td class="wizard-val"><span class="highlight-result">0.53</span></td>
-                <td class="wizard-val"><span class="highlight-result">0.33</span></td>
-                <td class="wizard-val"><span class="highlight-result">0.17</span></td>
-                <td class="wizard-val"><span class="highlight-result">0.63</span></td>
-                <td class="wizard-val"><span class="highlight-result">0.17</span></td>
-                <td class="wizard-val"><span class="highlight-result">0.33</span></td>
+                <td class="wizard-val" style="padding: 0.8rem 1rem; font-weight: 500;">WIZARD</td>
+                <td class="wizard-val" style="padding: 0.8rem 1rem;"><span class="highlight-result">0.53</span></td>
+                <td class="wizard-val" style="padding: 0.8rem 1rem;"><span class="highlight-result">0.33</span></td>
+                <td class="wizard-val" style="padding: 0.8rem 1rem;"><span class="highlight-result">0.17</span></td>
+                <td class="wizard-val" style="padding: 0.8rem 1rem;"><span class="highlight-result">0.63</span></td>
+                <td class="wizard-val" style="padding: 0.8rem 1rem;"><span class="highlight-result">0.17</span></td>
+                <td class="wizard-val" style="padding: 0.8rem 1rem;"><span class="highlight-result">0.33</span></td>
               </tr>
             </tbody>
           </table>
@@ -325,37 +359,33 @@
           </div>
         </div>
         
-        <div class="insights-body" style="margin-top: 3rem;">
-          <div class="insights-grid">
-            <article class="analysis-card">
-              <h3>Data Efficiency</h3>
-              <p>
-                On LIBERO-Spatial Task 1, WIZARD reaches <span class="highlight-result" style="font-weight: 800;">90% success</span> with no
-                task-specific gradient updates, while MT-VLA starts near 22% and needs about
+        <div class="insights-body" style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            
+            <article class="analysis-card" style="background: var(--standard-green-alt); border: none; border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; width: 100%;">
+              <h3 style="font-family: var(--header-family); font-size: 1.1rem; color: var(--standard-dark); font-weight: 800; margin-bottom: 0.5rem;">Data Efficiency</h3>
+              <p style="font-family: var(--body-family); color: var(--text-primary); margin-bottom: 1.5rem;">
+                On LIBERO-Spatial, WIZARD reaches <span class="highlight-result" style="font-weight: 800;">90% success</span> with no
+                task-specific gradient updates, while MT-VLA starts near 22% and needs
                 <span style="font-weight:bold; color: var(--standard-blue);">25 demonstrations</span> to match that level.
               </p>
+              <img src="./static/images/data_efficiency.png" alt="Data Efficiency Plot" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-top: auto;">
             </article>
-            <article class="analysis-card">
-              <h3>Warm-Start Adaptation</h3>
-              <p>
+
+            <article class="analysis-card" style="background: var(--standard-green-alt); border: none; border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; width: 100%;">
+              <h3 style="font-family: var(--header-family); font-size: 1.1rem; color: var(--standard-dark); font-weight: 800; margin-bottom: 0.5rem;">Warm-Start Adaptation</h3>
+              <p style="font-family: var(--body-family); color: var(--text-primary); margin-bottom: 1.5rem;">
                 Even where zero-shot fails, generated adapters provide a better starting region:
                 expert-level performance is recovered in <span class="highlight-result" style="font-weight: 800;">7 steps</span>
                 vs <span style="font-weight:bold; color: var(--standard-blue);">9 steps</span> with MT-VLA initialization.
               </p>
+              <img src="./static/images/warm_start.png" alt="Warm-Start Plot" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-top: auto;">
             </article>
-          </div>
-          
-          <div class="insights-stats">
-            <div class="stat-card stat-card--green">
-              <div class="stat-number">0.33</div>
-              <div class="stat-label">Real-world average success (vs 0.17 baseline)</div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
 
-    <section class="section section-alt" id="citation">
+    <section class="section" id="citation">
       <div class="container content-narrow reveal">
         <p class="section-label">Citation</p>
         <h2 class="section-title">BibTeX<span class="period">.</span></h2>
