@@ -6,7 +6,7 @@
   --standard-green: #32b692;
   --standard-green-alt: #c6ffe0;
   --standard-light: #f6f4ec;
-  --standard-light-alt: #d9cbb5;
+  --standard-light-alt: #ece8d9; /* Slightly darker beige for boxes */
   --standard-dark: #0d0221;
   --standard-dark-alt: #2c2c2c;
   --standard-red: #e4453a;
@@ -15,6 +15,7 @@
   --text-muted: #424242;
   --text-inverse: #f6f4ec;
   --standard-viola: #34147D;
+  --light-viola: #ad96f7; /* Required for contrast in Black Method Box */
 
   /* Button Gradients */
   --blue-dark: linear-gradient(var(--standard-dark), var(--standard-dark)) padding-box, linear-gradient(90deg, var(--standard-blue) 0%, var(--standard-light) 38.02%, var(--standard-blue) 75.83%) border-box;
@@ -56,9 +57,8 @@ body {
   margin: 0;
   font-family: var(--body-family);
   color: var(--text-primary);
-  background: radial-gradient(circle at 8% -5%, #d8edff 0%, transparent 42%),
-              radial-gradient(circle at 92% 3%, #defce9 0%, transparent 38%),
-              var(--standard-light);
+  /* Pure Beige Background - removed the blueish/greenish gradients */
+  background: var(--standard-light);
   line-height: 1.65;
 }
 
@@ -110,17 +110,10 @@ a {
   padding: 5.5rem 0;
 }
 
-.section-alt {
-  background: linear-gradient(180deg, rgba(106, 124, 255, 0.08), rgba(106, 124, 255, 0.03));
-  border-top: 1px solid rgba(106, 124, 255, 0.2);
-  border-bottom: 1px solid rgba(106, 124, 255, 0.2);
-}
-
+/* Section Dark Background Standardized to Solid Viola */
 .section-dark {
   color: var(--text-inverse);
-  background: radial-gradient(circle at 10% 10%, #222038 0%, transparent 40%),
-              radial-gradient(circle at 82% 18%, #26385d 0%, transparent 40%),
-              var(--standard-dark);
+  background: var(--standard-dark);
 }
 
 .section-dark h2,
@@ -180,14 +173,6 @@ a {
 
 .section-dark .highlight-keyword {
   color: #c5b6ff;
-}
-
-/* Fix Dark Section Headings */
-.why-section h2,
-.why-section .section-title,
-.section-dark h2,
-.section-dark .section-title {
-  color: var(--standard-light) !important;
 }
 
 /* =========================================
@@ -337,10 +322,19 @@ body:has(.menu-toggle:checked) {
 }
 
 /* =========================================
-   FULL-BLEED HERO STYLES
+   FULL-BLEED HERO STYLES (w/ ANIMATION)
    ========================================= */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .main-hero {
-  background: linear-gradient(135deg, var(--standard-viola, #34147D) 0%, #1d0942 100%);
+  /* Changed from Viola to Dark Blue as requested */
+  background: linear-gradient(135deg, #0d0221 0%, #1f2c4a 50%, #0d0221 100%);
+  background-size: 200% 200%;
+  animation: gradientMove 12s ease infinite; /* Dynamic element to fix static feel */
   padding: var(--space-2xl) 0;
   position: relative;
   overflow: hidden;
@@ -363,7 +357,7 @@ body:has(.menu-toggle:checked) {
 
 .main-hero-grid {
   display: block;
-  max-width: 1000px; /* Constrain text width */
+  max-width: 1000px;
 }
 
 .h1-size {
@@ -436,34 +430,11 @@ body:has(.menu-toggle:checked) {
   cursor: pointer;
 }
 
-.cta-button.cta-center, 
-.cta-button-alt.cta-center, 
-.tag-button.cta-center {
-  display: block;
-  margin: auto;
-}
-
-.cta-button:disabled, .cta-button.disabled,
-.cta-button-alt:disabled, .cta-button-alt.disabled {
-  background: #888888;
-  border-color: var(--standard-light);
-  cursor: not-allowed;
-}
-
 .cta-button { background: var(--blue-dark); }
-.cta-button:hover:not(:disabled):not(.disabled) {
-  background: var(--blue-light);
-  color: var(--standard-blue);
-}
-
-.cta-button-alt { background: var(--blue-blue); }
-.cta-button-alt:hover:not(:disabled):not(.disabled) {
-  background: var(--blue-green);
-  color: var(--standard-dark);
-}
+.cta-button:hover { background: var(--blue-light); color: var(--standard-blue); }
 
 /* =========================================
-   CARDS & GRIDS
+   CARDS & GRIDS (SPECIFIC METHOD BOXES)
    ========================================= */
 .card-grid {
   display: grid;
@@ -474,25 +445,43 @@ body:has(.menu-toggle:checked) {
 }
 
 .card-grid .card {
-  backdrop-filter: blur(10px);
   border-radius: var(--radius-lg);
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
+  /* Added a subtle white border so Card 01 stays visible against the Viola background */
+  border: 1px solid rgba(255, 255, 255, 0.15); 
 }
 
 .card-grid .card > * {
   margin: 0 0 1rem;
-  color: var(--standard-light);
   position: relative;
   z-index: 2;
 }
 
-.card-grid .blue { background: #6A7CFF; }
-.card-grid .dark { background: #1C1C1E; }
-.card-grid .green { background: #32B692; }
+/* Custom Method Cards Backgrounds */
+/* Custom Method Cards Backgrounds */
+.card-grid .card-01 { background: var(--standard-blue); } /* #6a7cff */
+.card-grid .card-02 { background: #1C1C1E; }
+.card-grid .card-03 { background: var(--standard-green); } /* #32b692 */
+
+/* Force whitish text for maximum contrast on all method cards AND bold text */
+.card-grid .card p,
+.card-grid .card span,
+.card-grid .card strong { 
+  font-family: var(--body-family); /* Maps to "DM Sans", sans-serif */
+  color: var(--standard-light) !important; 
+}
+
+/* Specific styling for the Card Headings (Build Task Experts, etc.) */
+.card-grid .card h3 {
+  font-family: var(--header-family); /* 'JetBrains Mono', monospace */
+  font-size: 16px;
+  color: var(--standard-light) !important; /* #F6F4EC */
+  margin-bottom: 0.8rem;
+  font-weight: 800; /* Extra bold */
+}
 
 .pill-grid {
   margin-top: 1rem;
@@ -500,11 +489,14 @@ body:has(.menu-toggle:checked) {
   gap: 0.75rem;
 }
 
-.pill {
+/* Force whitish text for pills AND their bold text */
+.pill,
+.pill strong {
   border-radius: 999px;
   padding: 0.6rem 1rem;
   border: 1px solid rgba(44, 44, 44, 0.14);
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--standard-light) !important;
   font-size: 0.95rem;
 }
 
@@ -622,10 +614,8 @@ body:has(.menu-toggle:checked) {
 }
 
 .real-copy {
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .real-videos {
@@ -657,8 +647,9 @@ body:has(.menu-toggle:checked) {
   gap: 12px;
 }
 
+/* Keep Stat Cards White */
 .stat-card {
-  background: #fff;
+  background: #ffffff;
   border-top: 0.5px solid #ddd;
   border-right: 0.5px solid #ddd;
   border-bottom: 0.5px solid #ddd;
@@ -690,8 +681,9 @@ body:has(.menu-toggle:checked) {
   line-height: 1.5;
 }
 
-.insights-section { padding: 8rem 0 2rem; }
-.why-section { background: var(--standard-dark); }
+/* Adjusted spacing for Analysis Section blank space */
+.insights-section { padding: 4rem 0 2rem; }
+.why-section { background: var(--standard-light); } /* Changed from dark to beige */
 .insights-content { padding: 0 2rem; }
 
 .insights-content .insights-title {
@@ -701,6 +693,10 @@ body:has(.menu-toggle:checked) {
   gap: 1rem;
   margin-top: 1rem;
 }
+
+/* Force dark text since background is now beige */
+.why-section h2, 
+.why-section .section-title { color: var(--standard-dark) !important; }
 
 .insights-content .insights-title h2 {
   margin: 0;
@@ -714,13 +710,13 @@ body:has(.menu-toggle:checked) {
   gap: 2rem; 
 }
 
-/* High Contrast Analysis Cards */
+/* Beige Analysis Boxes */
 .why-section .analysis-card {
-  background: linear-gradient(160deg, #ffffff, #eef5ff);
-  border: 1px solid rgba(106, 124, 255, 0.4);
+  background: var(--standard-light-alt); /* Beige boxes */
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
 .why-section .analysis-card h3 {
