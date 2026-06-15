@@ -332,7 +332,7 @@ body:has(.menu-toggle:checked) {
 
 .main-hero {
   /* Changed from Viola to Dark Blue as requested */
-  background: linear-gradient(135deg, #0d0221 0%, #1f2c4a 50%, #0d0221 100%);
+  background: linear-gradient(135deg, #f6f4ec 0%, #0d0221 25%, #0d0221 100%);
   background-size: 200% 200%;
   animation: gradientMove 12s ease infinite; /* Dynamic element to fix static feel */
   padding: var(--space-2xl) 0;
