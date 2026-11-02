@@ -1,10 +1,10 @@
 # WIZARD:<br>ROBOTIC POLICY ADAPTATION <br> via WEIGHT-SPACE META-LEARNING
 
-[Visit the Project Website](https://Fascetta.github.io/WIZARD/)
+**CoRL 2026 Workshop** · [Paper (arXiv:2606.07217)](https://arxiv.org/abs/2606.07217) · [Project Website](https://fascetta.github.io/WIZARD/)
 
 ## TL;DR
 
-Standard VLA adaptation is bottlenecked by task-specific action labels and test-time optimization. WIZARD removes both: it generates LoRA weights directly from language and video evidence, then injects them into a frozen policy for zero-shot execution. WIZARD improves performance on unseen tasks by up to **14x** compared to standard methods.
+Standard VLA adaptation is bottlenecked by task-specific action labels and test-time optimization. WIZARD removes both: it generates LoRA weights directly from language and video evidence, then injects them into a frozen policy for zero-shot execution. On held-out LIBERO-Spatial tasks and on a real Franka Emika Panda, WIZARD roughly **doubles** the success rate of a fine-tuned π0.5 policy.
 
 ---
 
@@ -44,7 +44,7 @@ We evaluate against MT-VLA fine-tuning under strict held-out distribution shifts
 
 ## 🤖 Real-World Deployment
 
-Real deployment uses a 7-DoF Franka Emika Panda with an eye-in-hand Intel RealSense D415 and two external D405 cameras. WIZARD provides a ~14x gain on unseen tasks compared to MT-VLA baselines.
+Real deployment uses a 7-DoF Franka Emika Panda with an eye-in-hand Intel RealSense D415 and two external D405 cameras. WIZARD roughly doubles average success on unseen tasks compared to the π0.5 baseline.
 
 | Method | Banana | Apple | Marker | Cup | Apple→Cup | **Avg.** |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -65,7 +65,7 @@ Examples of WIZARD performing tasks zero-shot:
 
 ## 💻 Code, Installation & Usage
 
-[https://github.com/Fascetta/WIZARD](https://github.com/Fascetta/WIZARD)
+The code is being prepared for release. This repository currently hosts the [project website](https://fascetta.github.io/WIZARD/).
 
 ---
 
