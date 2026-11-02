@@ -49,7 +49,7 @@ Real deployment uses a 7-DoF Franka Emika Panda with an eye-in-hand Intel RealSe
 | Method | Banana | Apple | Marker | Cup | Apple→Cup | **Avg.** |
 | --- | --- | --- | --- | --- | --- | --- |
 | pi0.5 baseline | 0.27 | 0.13 | 0.10 | 0.30 | 0.07 | 0.17 |
-| **WIZARD** | 0.53 | 0.33 | 0.17 | 0.63 | 0.17 | **0.33** |
+| **WIZARD** | 0.53 | 0.33 | 0.17 | 0.63 | 0.17 | **0.37** |
 
 ---
 
