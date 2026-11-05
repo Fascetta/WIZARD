@@ -41,12 +41,6 @@ We evaluate under held-out task distributions: each LIBERO suite is held out in 
 | **LIBERO-10** (part 1/2) | ≤0.01 | 0.03/0.03 | 0.05/0.04 | **0.09/0.07** | +0.06/+0.04 |
 | **MetaWorld ML45** | 0.44 | 0.58 | 0.60 | **0.66** | +0.08 |
 
---- | --- | --- | --- |
-| **LIBERO-Spatial** | 0.19 | **0.40** | +0.21 (~2.1x) |
-| **LIBERO-Goal** | 0.14 | **0.22** | +0.08 (~1.6x) |
-| **LIBERO-Object** | 0.01 | **0.03** | +0.02 (~3.0x) |
-| **LIBERO-10** (A/B) | 0.03/0.03 | **0.09/0.07** | +0.06/+0.04 |
-
 ---
 
 ## 🤖 Real-World Deployment
@@ -56,10 +50,6 @@ Real deployment uses a 7-DoF Franka Emika Panda with an eye-in-hand Intel RealSe
 | Method | Banana | Apple | Marker | Cup | Apple→Cup | **Avg.** |
 | --- | --- | --- | --- | --- | --- | --- |
 | Fine-tuned π0.5 | 0.27 | 0.13 | 0.10 | 0.30 | 0.07 | 0.17 |
-| **WIZARD** | 0.53 | 0.33 | 0.17 | 0.63 | 0.17 | **0.37** |
-
---- | --- | --- | --- | --- | --- | --- |
-| pi0.5 baseline | 0.27 | 0.13 | 0.10 | 0.30 | 0.07 | 0.17 |
 | **WIZARD** | 0.53 | 0.33 | 0.17 | 0.63 | 0.17 | **0.37** |
 
 ---
