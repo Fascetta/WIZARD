@@ -104,7 +104,7 @@
         <p>
           Standard VLA adaptation is bottlenecked by task-specific action labels and test-time optimization.
           WIZARD removes both: it predicts LoRA weights directly from language + video evidence,
-          then injects them into a frozen policy for zero-shot execution.
+          then injects them into a frozen policy for zero-shot execution. It is evaluated on LIBERO, MetaWorld ML45 and a real Franka Panda.
         </p>
         <p>
           The method is trained with a meta-dataset of pairs <strong>(task embedding, expert LoRA update)</strong> and adds
@@ -128,15 +128,15 @@
         <div class="card-grid reveal">
           <article class="card card-01">
             <h3>BUILD TASK EXPERTS</h3>
-            <p><strong>Expert construction:</strong> train LoRA experts for meta-train datasets (<span style="font-weight:bold;">LIBERO-Goal</span>, <span style="font-weight:bold;">LIBERO-Object</span>, <span style="font-weight:bold;">LIBERO-10</span>) on top of a frozen VLA backbone.</p>
+            <p><strong>Expert construction:</strong> train a LoRA expert for every source task on top of a frozen <span style="font-weight:bold;">pi0.5</span> backbone. Their state-action trajectories are used only here, to provide weight-space targets.</p>
           </article>
           <article class="card card-02">
             <h3>LEARN WEIGHT MAPPING</h3>
-            <p><strong>Weight inference learning:</strong> encode task evidence from prompt and demo video, then train a meta-network to reconstruct expert LoRA updates in <span style="font-weight:bold;">weight space</span>.</p>
+            <p><strong>Weight inference learning:</strong> encode a language instruction and a demonstration video with the frozen VLA encoder, then train a meta-network to reconstruct expert LoRA updates in <span style="font-weight:bold;">weight space</span>.</p>
           </article>
           <article class="card card-03">
             <h3>ZERO-SHOT INFERENCE</h3>
-            <p><strong>Deployment-time adaptation:</strong> infer LoRA weights in one forward pass and inject them into the frozen policy, with <span style="font-weight:bold;">no action labels</span> and <span style="font-weight:bold;">no gradient updates</span>.</p>
+            <p><strong>Deployment-time adaptation:</strong> infer LoRA weights in one forward pass (about 0.07 s) and inject them into the frozen policy, with <span style="font-weight:bold;">no action labels</span> and <span style="font-weight:bold;">no gradient updates</span>.</p>
           </article>
         </div>
 
@@ -152,14 +152,14 @@
             <strong style="color: var(--standard-green-alt); font-family: var(--header-family); font-size: 14px; font-weight: 800; display: block; margin-bottom: 0.4rem; text-transform: uppercase;">
               Scale-aware synthesis
             </strong> 
-            Predict updates plus per-layer mean/std for stable control.
+            Predict normalized updates plus per-group mean/std for stable generation.
           </div>
           
           <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(50, 182, 146, 0.25); border-radius: 12px; padding: 1.2rem; color: var(--standard-light); font-family: var(--body-family); font-size: 0.9rem; line-height: 1.6;">
             <strong style="color: var(--standard-green); font-family: var(--header-family); font-size: 14px; font-weight: 800; display: block; margin-bottom: 0.4rem; text-transform: uppercase;">
               Alignment losses
             </strong> 
-            MSE + scale + cosine terms enforce functional directionality.
+            MSE + scale + cosine terms enforce numerical and directional agreement with the expert.
           </div>
 
         </div>
@@ -181,19 +181,19 @@
             <article class="protocol-item" style="background: var(--standard-dark); border: none;">
               <h4 style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); margin-bottom: 0.35rem;">Held-Out Shift</h4>
               <p style="font-family: var(--body-family); color: var(--standard-light);">
-                <strong style="color: var(--standard-light);">Split rule:</strong> meta-train on three <span class="highlight-keyword" style="color: var(--standard-green-alt);">LIBERO</span> suites and evaluate on the unseen fourth suite.
+                <strong style="color: var(--standard-light);">Split rule:</strong> on <span class="highlight-keyword" style="color: var(--standard-green-alt);">LIBERO</span>, meta-train on three suites and evaluate on the unseen fourth. <span class="highlight-keyword" style="color: var(--standard-green-alt);">MetaWorld ML45</span> uses 45 source tasks and 5 held-out tasks.
               </p>
             </article>
             <article class="protocol-item" style="background: var(--standard-dark); border: none;">
               <h4 style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); margin-bottom: 0.35rem;">Reproducible Evaluation</h4>
               <p style="font-family: var(--body-family); color: var(--standard-light);">
-                <strong style="color: var(--standard-light);">Fixed starts:</strong> each task is tested on 50 predefined initial states to preserve comparability.
+                <strong style="color: var(--standard-light);">Fixed starts:</strong> each LIBERO task is evaluated over 50 rollouts, and each real-robot task over 30.
               </p>
             </article>
             <article class="protocol-item" style="background: var(--standard-dark); border: none;">
               <h4 style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); margin-bottom: 0.35rem;">Baselines</h4>
               <p style="font-family: var(--body-family); color: var(--standard-light);">
-                <strong style="color: var(--standard-light);">Reference methods:</strong> nearest-neighbor adapter retrieval and MT-VLA fine-tuning with <span class="highlight-keyword" style="color: var(--standard-green-alt);">OpenVLA-OFT</span> and <span class="highlight-keyword" style="color: var(--standard-green-alt);">pi0.5</span>.
+                <strong style="color: var(--standard-light);">Reference methods:</strong> pretrained pi0.5, nearest-neighbor adapter retrieval, one-demonstration fine-tuned <span class="highlight-keyword" style="color: var(--standard-green-alt);">pi0.5</span>, and <span class="highlight-keyword" style="color: var(--standard-green-alt);">LoRA-Gen</span>. WIZARD uses the same demonstration without its action labels.
               </p>
             </article>
           </div>
@@ -202,41 +202,16 @@
         <!-- 2. Table -->
         <div class="table-wrap reveal" style="border: none; border-radius: 16px; overflow-x: auto; overflow-y: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-top: 2rem;">
           <table style="background: #ffffff; width: 100%;">
-            <thead style="background: var(--standard-blue);">
-              <tr>
-                <th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">Dataset</th>
-                <th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">MT-VLA (pi0.5) Avg.</th>
-                <th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">WIZARD Avg.</th>
-                <th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">Delta</th>
-              </tr>
-            </thead>
-            <tbody style="font-family: var(--body-family);">
-              <tr>
-                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Spatial</td>
-                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.19</td>
-                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.40</span></td>
-                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.21 (~2.1x)</span></td>
-              </tr>
-              <tr>
-                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Goal</td>
-                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.14</td>
-                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.22</span></td>
-                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.08 (~1.6x)</span></td>
-              </tr>
-              <tr>
-                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Object</td>
-                <td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.01</td>
-                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.03</span></td>
-                <td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.02 (~3.0x)</span></td>
-              </tr>
-              <tr>
-                <td style="padding: 1rem; font-weight: 500;">LIBERO-10 (A/B subtasks)</td>
-                <td style="padding: 1rem;">0.03/0.03</td>
-                <td class="wizard-val" style="padding: 1rem;"><span class="highlight-result">0.09/0.07</span></td>
-                <td class="wizard-val" style="padding: 1rem;"><span class="highlight-result">+0.06/+0.04</span></td>
-              </tr>
-            </tbody>
-          </table>
+<thead style="background: var(--standard-blue);"><tr><th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">Dataset</th><th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">Fine-tuned pi0.5</th><th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">LoRA-Gen</th><th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">WIZARD</th><th style="font-family: var(--header-family); font-size: 16px; font-weight: 800; color: var(--standard-light); padding: 1rem;">Delta vs fine-tuned</th></tr></thead>
+<tbody style="font-family: var(--body-family);">
+<tr><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Spatial</td><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.19</td><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.28</td><td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.40</span></td><td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.21 (~2.1x)</span></td></tr>
+<tr><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Goal</td><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.14</td><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.17</td><td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.22</span></td><td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.08 (~1.6x)</span></td></tr>
+<tr><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-Object</td><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.01</td><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.01</td><td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.03</span></td><td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.02 (~3.0x)</span></td></tr>
+<tr><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500;">LIBERO-10 (part 1/2)</td><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.03/0.03</td><td style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);">0.05/0.04</td><td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">0.09/0.07</span></td><td class="wizard-val" style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06);"><span class="highlight-result">+0.06/+0.04</span></td></tr>
+<tr><td style="padding: 1rem;  font-weight: 500;">MetaWorld ML45</td><td style="padding: 1rem; ">0.58</td><td style="padding: 1rem; ">0.60</td><td class="wizard-val" style="padding: 1rem; "><span class="highlight-result">0.66</span></td><td class="wizard-val" style="padding: 1rem; "><span class="highlight-result">+0.08</span></td></tr>
+</tbody>
+</table>
+<p style="font-size:0.85rem; padding:0.75rem 1rem; margin:0; background:#fff;">Average success over held-out tasks. Pretrained pi0.5 scores 0% on all LIBERO suites; nearest-neighbor retrieval reaches 2% on Spatial and Goal and 44% on MetaWorld. LIBERO-10 reports the first/second part of each long-horizon task.</p>
         </div>
 
         <!-- 3. Videos -->
@@ -275,8 +250,7 @@
           
           <div class="real-copy" style="background: var(--standard-blue); border: none; border-radius: 16px; padding: 1.5rem; min-width: 0; display: flex; flex-direction: column; justify-content: center;">
             <p style="color: var(--standard-light);">
-              Both baseline and WIZARD start from the same pi0.5 checkpoint
-              (<span style="color: var(--standard-green-alt); font-weight: 700;">+ 30 adaptation episodes</span>), isolating gains from task-level weight generation.
+              Both methods start from the same DROID-pretrained pi0.5 checkpoint. One task is held out and the other four serve as source tasks. Fine-tuning uses one action-labeled demonstration, while WIZARD uses it without actions (<span style="color: var(--standard-green-alt); font-weight: 700;">30 rollouts per task</span>).
             </p>
             
             <div class="real-videos" style="margin-top: 1.5rem;">
@@ -301,8 +275,8 @@
 
           <div class="project-stats" style="min-width: 0; display: flex; flex-direction: column; gap: 1rem; height: 100%;">
             <div class="stat-card stat-card--green" style="flex: 1; display: flex; flex-direction: column; justify-content: center; border-radius: 12px;">
-              <div class="stat-number"><span class="stat-approx">~</span>2x</div>
-              <div class="stat-label">Gain on unseen dataset suites</div>
+              <div class="stat-number">40%</div>
+              <div class="stat-label">LIBERO-Spatial success (vs 19% fine-tuned pi0.5)</div>
             </div>
             <div class="stat-card stat-card--blue" style="flex: 1; display: flex; flex-direction: column; justify-content: center; border-radius: 12px;">
               <div class="stat-number">0</div>
@@ -330,7 +304,7 @@
             </thead>
             <tbody style="font-family: var(--body-family); font-size: 14px;">
               <tr>
-                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500; color: var(--standard-dark);">pi0.5 baseline</td>
+                <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); font-weight: 500; color: var(--standard-dark);">Fine-tuned pi0.5</td>
                 <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.27</td>
                 <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.13</td>
                 <td style="padding: 0.8rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--standard-dark);">0.10</td>
@@ -358,7 +332,7 @@
         <div class="insights-title">
           <div>
             <p class="section-label">Analysis</p>
-            <h2 class="section-title">Data Efficiency & Warm Start<span class="period">.</span></h2>
+            <h2 class="section-title">Data Efficiency, Warm Start &amp; Ablations<span class="period">.</span></h2>
           </div>
         </div>
         
@@ -367,9 +341,9 @@
             <article class="analysis-card" style="background: var(--standard-green-alt); border: none; border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; width: 100%;">
               <h3 style="font-family: var(--header-family); font-size: 1.1rem; color: var(--standard-dark); font-weight: 800; margin-bottom: 0.5rem;">Data Efficiency</h3>
               <p style="font-family: var(--body-family); color: var(--text-primary); margin-bottom: 1.5rem;">
-                On LIBERO-Spatial, WIZARD reaches <span class="highlight-result" style="font-weight: 800;">90% success</span> with no
-                task-specific gradient updates, while MT-VLA starts near 22% and needs
-                <span style="font-weight:bold; color: var(--standard-blue);">25 demonstrations</span> to match that level.
+                On LIBERO-Spatial Task 1, WIZARD reaches <span class="highlight-result" style="font-weight: 800;">90% success</span> from one
+                unlabeled demonstration, while fine-tuning needs about
+                <span style="font-weight:bold; color: var(--standard-blue);">25 action-labeled demonstrations</span> to match it.
               </p>
               <img src="./static/images/data_efficiency.png" alt="Data Efficiency Plot" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-top: auto;">
             </article>
@@ -377,13 +351,31 @@
             <article class="analysis-card" style="background: var(--standard-green-alt); border: none; border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; width: 100%;">
               <h3 style="font-family: var(--header-family); font-size: 1.1rem; color: var(--standard-dark); font-weight: 800; margin-bottom: 0.5rem;">Warm-Start Adaptation</h3>
               <p style="font-family: var(--body-family); color: var(--text-primary); margin-bottom: 1.5rem;">
-                Even where zero-shot fails, generated adapters provide a better starting region:
-                expert-level performance is recovered in <span class="highlight-result" style="font-weight: 800;">7 steps</span>
-                vs <span style="font-weight:bold; color: var(--standard-blue);">9 steps</span> with MT-VLA initialization.
+                On LIBERO-Spatial Task 10, initializing from the generated adapter reaches the 96% target-expert level after
+                <span class="highlight-result" style="font-weight: 800;">70 fine-tuning steps</span>
+                vs <span style="font-weight:bold; color: var(--standard-blue);">90 steps</span> from the standard initialization.
               </p>
               <img src="./static/images/warm_start.png" alt="Warm-Start Plot" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-top: auto;">
             </article>
 
+        </div>
+
+        <div class="insights-body" style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <article class="analysis-card" style="background: var(--standard-green-alt); border: none; border-radius: 16px; padding: 1.5rem;">
+            <h3 style="font-family: var(--header-family); font-size: 1.1rem; color: var(--standard-dark); font-weight: 800; margin-bottom: 0.5rem;">Task Conditioning</h3>
+            <p style="font-family: var(--body-family); color: var(--text-primary);">
+              On LIBERO-Spatial, language-only conditioning fails (0%), vision-only reaches 25%, and both together reach <strong>40%</strong>.
+              Gemma and Qwen embeddings give 0%, whereas the frozen VLA representation reaches 40%.
+              More target demonstrations do not help under mean aggregation (40, 40, 39, 40% for 1, 3, 5, 10).
+            </p>
+          </article>
+          <article class="analysis-card" style="background: var(--standard-green-alt); border: none; border-radius: 16px; padding: 1.5rem;">
+            <h3 style="font-family: var(--header-family); font-size: 1.1rem; color: var(--standard-dark); font-weight: 800; margin-bottom: 0.5rem;">Generation Cost</h3>
+            <p style="font-family: var(--body-family); color: var(--text-primary);">
+              At rank 16, WIZARD generates a <strong>46.1M-parameter</strong> adapter (1.27% of the adapted pi0.5 parameters) in about
+              <strong>0.07 s</strong> using 1.74 GB on an NVIDIA A6000. Generating the full 3.62B-parameter policy exceeds 48 GB of memory.
+            </p>
+          </article>
         </div>
       </div>
     </section>
