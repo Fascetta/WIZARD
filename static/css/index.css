@@ -823,3 +823,11 @@ code {
   .stat-number { font-size: 2.2rem; }
   pre { font-size: 11px; }
 }
+
+@media (max-width: 680px) {
+  .analysis-card { padding: 0.9rem !important; }
+  .insights-content { width: calc(100vw - 1rem) !important; }
+}
+@media (max-width: 680px) {
+  .insights-section .container { padding-left: 0.4rem; padding-right: 0.4rem; }
+}
