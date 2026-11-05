@@ -796,7 +796,8 @@ code {
   .project-body,
   .insights-body,
   .card-grid,
-  .insights-grid { grid-template-columns: 1fr; }
+  .insights-grid { grid-template-columns: 1fr !important; }
+  .insights-body { grid-template-columns: 1fr !important; gap: 1rem !important; margin-top: 1.5rem !important; }
 }
 
 @media (max-width: 680px) {
@@ -806,4 +807,19 @@ code {
   .real-videos .video-card video { height: 210px; }
   .hero-copy, .hero-media { padding: 1rem; }
   .container, .content-narrow { width: calc(100vw - 1.2rem); }
+}
+
+/* Phone layout: keep result tables on screen, no sideways scrolling */
+@media (max-width: 680px) {
+  .table-wrap { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
+  .table-wrap table { white-space: normal !important; width: 100% !important; table-layout: auto; min-width: 0 !important; }
+  .table-wrap th, .table-wrap td {
+    padding: 0.55rem 0.3rem !important;
+    font-size: 12px !important;
+    line-height: 1.25;
+    word-break: break-word;
+  }
+  .table-wrap th:first-child, .table-wrap td:first-child { padding-left: 0.6rem !important; }
+  .stat-number { font-size: 2.2rem; }
+  pre { font-size: 11px; }
 }
